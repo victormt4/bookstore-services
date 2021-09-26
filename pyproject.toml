@@ -5,7 +5,7 @@ description = "Backend services para bookStore"
 authors = ["Victor Mota <victor.vmt@outlook.com>"]
 
 [tool.poetry.dependencies]
-python = "3.8.1"
+python = "3.8.12"
 Flask = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
