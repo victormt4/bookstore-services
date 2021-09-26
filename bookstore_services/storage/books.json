@@ -1,0 +1,129 @@
+[
+  {
+    "name": "Naruto",
+    "author": "Masashi Kishimoto",
+    "description": "Naruto (ナルト?) é uma série de mangá escrita e ilustrada por Masashi Kishimoto, que conta a história de Naruto Uzumaki, um jovem ninja que constantemente procura por reconhecimento e sonha em se tornar Hokage, o ninja líder de sua vila. A história é dividida em duas partes, a primeira parte se passa nos anos da pré-adolescência de Naruto, e a segunda parte se passa em sua adolescência. A série é baseada em dois mangás one-shots de Kishimoto: Karakuri (1995), e que por causa dele Kishimoto ganhou uma menção honrosa no prêmio Hop Step da Shueisha no ano seguinte, e Naruto (1997). A editora Panini Comics licenciou e publicou o mangá em três versões no Brasil, e em Portugal é a editora Devir Manga quem licencia e publica o mangá. A história de Naruto continua com o seu filho, Boruto Uzumaki em Boruto: Naruto Next Generations.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/NarutoCoverTankobon1.jpg/220px-NarutoCoverTankobon1.jpg",
+    "category": "Manga",
+    "stock": 0,
+    "users_who_liked": [
+      "Paula",
+      "Giulia",
+      "Matias",
+      "Julia",
+      "Wilson"
+    ]
+  },
+  {
+    "name": "Dragon Ball",
+    "author": "Akira Toriyama",
+    "description": "Dragon Ball (ドラゴンボール Doragon Bōru?) é uma série de mangá shōnen japonesa escrita e ilustrada por Akira Toriyama. Ela foi originalmente serializada na revista Weekly Shonen Jump de1984 a 1995, com os 519 capítulos individuais coletados em 42 volumes tankōbon pela Shueisha. Dragon Ball foi inicialmente inspirado pelo clássico romance chinês Jornada ao Oeste e tem fortes aspectos de comédia no início, mas uma mudança ocorre o transformando em grande parte em uma série de luta cheia de ação. A série segue as aventuras de Son Goku, desde a sua infância até a idade adulta, enquanto ele treina artes marciais e explora o mundo em busca das sete orbes conhecidas como Esferas do Dragão, que invocam um dragão que realiza desejos quando reunidas. Ao longo de sua jornada, Goku faz vários amigos e batalha uma grande variedade de vilões, muitos dos quais também procuram as Esferas do Dragão.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/0/06/Dragon_Ball_vol._01.jpg",
+    "category": "Manga",
+    "stock": 5,
+    "users_who_liked": []
+  },
+  {
+    "name": "Civil War",
+    "author": "Mark Millar",
+    "description": "Guerra Civil (no original: Civil War) é uma minissérie de banda desenhada da editora Marvel Comics, escrita por Mark Millar e desenhada por Steve McNiven. Foi publicada em sete partes entre junho de 2006 e janeiro de 2007, além de se espalhar por quase todas as revistas Marvel no período. O evento ocorre após as sagas Vingadores: A Queda, Guerra Secreta e Dinastia M.[1]\n\nO enredo gira em torno da discussão a respeito da Lei de Registro de Super-Humanos, imposta pelo governo após um trágico acidente causado por um grupo de heróis, obrigando que todos os heróis uniformizados revelem suas identidades e passem a ser supervisionados pelo Estado. Com isso, a comunidade super-heroica divide-se entre aqueles que apoiam a Lei, liderados por Tony Stark; e os que são contra, liderados pelo Capitão América.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/2/23/Civil_War_7.jpg",
+    "category": "Quadrinhos",
+    "stock": 1,
+    "users_who_liked": [
+      "Victor",
+      "Lucas"
+    ]
+  },
+  {
+    "name": "Watchmen",
+    "author": "Alan Moore",
+    "description": "Watchmen é uma série limitada de história em quadrinhos (pt-BR) ou banda desenhada (pt-PT) escrita por Alan Moore e ilustrada por Dave Gibbons, publicada originalmente em doze edições mensais pela editora estadunidense DC Comics entre 1986 e 1987. A série foi reimpressa mais tarde em brochura (ou trade paperback).[1]\n\nWatchmen é considerada um marco importante na evolução dos quadrinhos nos EUA: introduziu abordagens e linguagens antes ligadas apenas aos quadrinhos ditos alternativos, além de lidar com temática de orientação mais madura e menos superficial, quando comparada às histórias em quadrinhos comerciais publicadas naquele país. Embora tenha sido publicada originalmente como uma série limitada, logo depois ganhou uma versão encadernada, sendo agora classificada como graphic novel (ou \"romance gráfico\"),[2] termo que define séries fechadas publicadas como livros,[3] o sucesso de crítica e de público que a série teve ajudou a popularizar o formato conhecido como até então pouco explorado pelo mesmo mercado.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/d/d0/Watchmen.jpg",
+    "category": "Quadrinhos",
+    "stock": 1,
+    "users_who_liked": [
+      "Victor",
+      "Lucas",
+      "Amanda"
+    ]
+  },
+  {
+    "name": "The Dark Knight Returns",
+    "author": "Frank Miller",
+    "description": "The Dark Knight Returns (no Brasil, O Cavaleiro das Trevas; em Portugal, O Retorno do Cavaleiro das Trevas) é uma minissérie em quatro edições publicada entre fevereiro e junho de 1986 pela editora de histórias em quadrinhos americana DC Comics. Escrita e desenhada por Frank Miller, fazendo sua fama mundialmente e trazendo novos olhares sobre o personagem Batman e principalmente sobre a indústria dos quadrinhos,[1][2] a série narra uma história de Bruce Wayne, que aos 55 anos de idade retorna da aposentadoria para combater o crime e enfrenta a oposição da força policial de Gotham City e o governo dos Estados Unidos. A história apresenta Carrie Kelley como o novo Robin e culmina com um confronto contra o Superman. Quando a série foi coletada em um único volume no final daquele ano, o título da história da primeira edição foi aplicado a toda a série.\n\nQuando de sua publicação, The Dark Knight Returns chamou a atenção de toda a indústria de quadrinhos. Esta obra ajudou a introduzir uma era de quadrinhos adultos no mundo fantasioso dos super-heróis, chamando a atenção da mídia para um gênero que até então era considerado entretenimento infantil. Até o formato do impresso era especial, diferente dos usados na época.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/7/74/The_Dark_Knight_Returns.jpg",
+    "stock": 10,
+    "category": "Quadrinhos",
+    "users_who_liked": [
+      "Victor",
+      "Lucas",
+      "Amanda"
+    ]
+  },
+  {
+    "name": "Invincible",
+    "author": "Robert Kirkman",
+    "description": "Invincible é uma revista em quadrinhos americana publicada pela Image Comics desde 2003. Criada por Robert Kirkman e Cory Walker , a série foi ilustrada por Walker durante suas sete primeiras edições e rapidamente atraiu a atenção do público e da crítica, sendo indicada ainda em 2004 ao Eisner Award de \"Melhor Série Estreante\"[1][2].\n\nOs primeiros números contam a história do jovem Mark Grayson, filho de um super-herói, a descoberta dos seus próprios poderes, sua interação com um mundo povoado de pessoas com poderes e a surpresa em descobrir que seu pai é, na verdade, um conquistador, com planos de escravizar a humanidade e a usar nas tarefas do Império de onde veio.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Invincible_Issue_75.jpeg/250px-Invincible_Issue_75.jpeg",
+    "stock": 2,
+    "category": "Quadrinhos",
+    "users_who_liked": []
+  },
+  {
+    "name": "One Piece",
+    "author": "Eiichiro Oda",
+    "description": "One Piece (ワンピース Wan Pīsu?) é uma série de mangá escrita e ilustrada por Eiichiro Oda. Os capítulos têm sido serializados na revista Weekly Shōnen Jump desde 22 de julho de 1997, com os capítulos compilados e publicados em 100 volumes tankōbon pela editora Shueisha até setembro de 2021. One Piece conta as aventuras de Monkey D. Luffy, um jovem cujo corpo ganhou as propriedades de borracha após ter comido uma fruta do diabo acidentalmente. Com sua tripulação, os Piratas do Chapéu de Palha, Luffy explora a Grand Line em busca do tesouro mais procurado do mundo, o \"One Piece\", a fim de se tornar o próximo Rei dos Piratas.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/f/ff/One_Piece_vol._01.jpg",
+    "stock": 0,
+    "category": "Manga",
+    "users_who_liked": []
+  },
+  {
+    "name": "One Punch-Man",
+    "author": "One",
+    "description": "One Punch-Man (ワンパンマン Wanpanman, lit. \"Homem Um-Soco\"?) é uma série de webcomic criada pelo autor com o pseudónimo One,[5] e é publicada desde 2009. A série rapidamente tornou-se um fenómeno viral, alcançando mais de 7,9 milhões de acessos, em junho de 2012. O nome da obra Wanpanman é uma paródia da personagem Anpanman, a palavra wanpan é uma contração de wanpanchi (one punch em língua inglesa).[6] One Punch-Man conta a história de Saitama, um super-herói extremamente poderoso, que se entediou com a ausência dos desafios nas suas lutas contra o mal e procura encontrar um oponente digno.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/pt/3/3f/OnePunchMan_manga_capa.png",
+    "stock": 1,
+    "category": "Manga",
+    "users_who_liked": [
+      "Paula",
+      "Giulia",
+      "Matias",
+      "Julia",
+      "Wilson",
+      "Victor",
+      "Amanda",
+      "Isabela"
+    ]
+  },
+  {
+    "name": "Mob Psycho 100",
+    "author": "One",
+    "description": "Mob Psycho 100 (モブサイコ100 Mobu Saiko Hyaku?) é um quadrinho on-line japonês criado pelo quadrinista One, publicado desde de 18 de abril de 2012 e concluído em 22 de dezembro de 2017, tendo sua versão física na revista Ura Sunday da editora Shogakukan,[1][2] também disponível para aplicativo móvel, MangaOne, desde dezembro de 2014.[3]",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/en/4/4b/Mob_Psycho_100_manga_vol_1.jpg",
+    "stock": 1,
+    "category": "Manga",
+    "users_who_liked": [
+      "Paula",
+      "Giulia",
+      "Matias",
+      "Julia",
+      "Wilson",
+      "Victor",
+      "Amanda",
+      "Isabela"
+    ]
+  },
+  {
+    "name": "Grand Blue",
+    "author": "Kenji Inoue",
+    "description": "Grand Blue (ぐらんぶる Guranburu?), também conhecido como Grand Blue Dreaming, é um mangá japonês escrito por Kenji Inoue e ilustrado por Kimitake Yoshioka. É publicado pela revista de mangá seinen Good! Afternoon, da Kodansha, desde abril de 2014 e compilado em treze volumes tankōbon. O mangá é publicado digitalmente em inglês pela Kodansha USA sob o selo Kodansha Comics. Uma adaptação em anime feita pelo estúdio Zero-G foi ao ar de 14 de julho a 29 de setembro de 2018, no bloco de programação Animeism em MBS.",
+    "cover_picture": "https://upload.wikimedia.org/wikipedia/en/e/e4/Grand_Blue_volume_1_cover.jpg",
+    "stock": 10,
+    "category": "Manga",
+    "users_who_liked": [
+      "Victor"
+    ]
+  }
+]
