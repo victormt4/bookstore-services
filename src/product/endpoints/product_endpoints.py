@@ -5,7 +5,13 @@ product_endpoint = Namespace('product', description='Product related operations'
 
 product_model = product_endpoint.model('Product', {
     'id': fields.Integer(required=True, description='Product id'),
-    'name': fields.String(required=True, description='Product name')
+    'name': fields.String(required=True, description='Product name'),
+    'author': fields.String(required=True, description='Product author/designer'),
+    'picture': fields.String(required=True, description='Product picture'),
+    'category': fields.String(required=True, description='Product category'),
+    'stock': fields.Integer(required=True, description='Stock'),
+    'price': fields.Float(required=True, description='Price'),
+    'likes': fields.Integer(required=False, default=0, description='Likes')
 })
 
 
