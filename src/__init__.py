@@ -8,7 +8,7 @@ from src.product.endpoints.product_endpoints import product_endpoint
 api = Api(
     title='Bookstore Services',
     version=__version__,
-    description='Rest services for bookStore app'
+    description='Endpoints para os serviços web do bookStore'
 )
 
 api.add_namespace(product_endpoint)
