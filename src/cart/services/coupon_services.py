@@ -1,11 +1,22 @@
-from typing import List
+from typing import Dict, List
 from json import load
+from flask import session
+import pickle
 
 from src.cart.entities import Coupon
+from src.cart.errors import CouponAlreadyActiveError
 from src.errors import NotFoundError
 
 
-class CouponService:
+class CouponServices:
+    __active_coupons: Dict[str, Coupon]
+
+    def __init__(self, session_object: session):
+        self.__session = session
+        self.__active_coupons = {}
+        if 'coupons' in session_object:
+            self.__active_coupons = pickle.loads(session_object['coupons'])
+
     def get_coupons(self) -> List[Coupon]:
         """
         Retorna uma lista de coupons
@@ -31,3 +42,14 @@ class CouponService:
                 return coupon
 
         raise NotFoundError(f"Coupon #{code} not found")
+
+    def activate_coupon(self, code: str):
+        coupon = self.get_coupon(code)
+
+        if coupon.code in self.__active_coupons:
+            raise CouponAlreadyActiveError(f"Coupon #{code} already active")
+
+        self.__active_coupons[coupon.code] = coupon
+
+    def get_active_coupons(self):
+        return self.__active_coupons

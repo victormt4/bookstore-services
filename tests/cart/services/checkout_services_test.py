@@ -1,11 +1,12 @@
 from src.cart.services.cart_services import CartServices
 from src.cart.services.checkout_services import CheckoutServices
+from src.cart.services.coupon_services import CouponServices
 from src.product.services.product_services import ProductServices
 
 
 def test_calc_subtotal():
     cart = CartServices(ProductServices(), {})
-    checkout = CheckoutServices(cart)
+    checkout = CheckoutServices(cart, CouponServices({}))
 
     assert checkout.calc_sub_total() == 0
 

@@ -1,12 +1,14 @@
 from src.cart.services.cart_services import CartServices
+from src.cart.services.coupon_services import CouponServices
 
 
 class CheckoutServices:
-    def __init__(self, cart_services: CartServices):
+    def __init__(self, cart_services: CartServices, coupon_services: CouponServices):
         """
         :param cart_services: CartServices
         """
         self.__cart = cart_services
+        self.__coupon = coupon_services
 
     def calc_sub_total(self) -> float:
         """
@@ -26,3 +28,5 @@ class CheckoutServices:
         total = sub_total
 
         return total
+
+
