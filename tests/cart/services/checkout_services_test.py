@@ -1,3 +1,6 @@
+import pytest
+
+from src.cart.errors import CouponLimitError
 from src.cart.services.cart_services import CartServices
 from src.cart.services.checkout_services import CheckoutServices
 from src.cart.services.coupon_services import CouponServices
@@ -32,3 +35,22 @@ def test_calc_subtotal():
     cart.clear_cart()
 
     assert checkout.calc_sub_total() == 0
+
+
+def test_calc_total():
+    session = {}
+    cart = CartServices(ProductServices(), session)
+    coupon = CouponServices(session)
+    checkout = CheckoutServices(cart, coupon)
+
+    cart.add_product_to_cart(1, 10)
+    coupon.activate_coupon('ASD810dss9da!98')
+
+    assert checkout.calc_sub_total() == 15.00
+    assert checkout.calc_total() == 12.75
+
+    # Tentando aplicar um desconto de 100%
+    with pytest.raises(CouponLimitError):
+        coupon.activate_coupon('asd1!98d10d98as')
+        coupon.activate_coupon('asd1!19qdaasçs')
+        checkout.calc_total()

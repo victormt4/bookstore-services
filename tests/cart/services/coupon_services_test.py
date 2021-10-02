@@ -1,6 +1,7 @@
 import pytest
 
 from src.cart.entities import Coupon
+from src.cart.errors import CouponAlreadyActiveError
 from src.cart.services.coupon_services import CouponServices
 from src.errors import NotFoundError
 
@@ -11,7 +12,7 @@ def test_get_coupons():
     coupons = coupon_service.get_coupons()
 
     assert type(coupons) == list
-    assert len(coupons) == 3
+    assert len(coupons) == 4
     for coupon in coupons:
         assert type(coupon) == Coupon
 
@@ -37,3 +38,6 @@ def test_activate_coupon():
     assert len(coupons) == 2
     assert 'ASD810dss9da!98' in coupons
     assert '4asd12d1asd!98' in coupons
+
+    with pytest.raises(CouponAlreadyActiveError):
+        coupon_service.activate_coupon('ASD810dss9da!98')

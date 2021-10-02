@@ -1,3 +1,4 @@
+from src.cart.errors import CouponLimitError
 from src.cart.services.cart_services import CartServices
 from src.cart.services.coupon_services import CouponServices
 
@@ -23,10 +24,18 @@ class CheckoutServices:
         Calcula o total de todos os produtos do carrinho (Aplicando coupons, fretes, outras taxas)
         :return: float
         """
-        sub_total = self.calc_sub_total()
+        active_coupons = self.__coupon.get_active_coupons().values()
 
-        total = sub_total
+        discount_total = 0
 
-        return total
+        for coupon in active_coupons:
+            discount_total += coupon.discount
 
+        # Checando se o sistema não está tentando aplicar um limite de 100%
+        if discount_total >= 1:
+            raise CouponLimitError
 
+        # Em uma situação real deve usar uma lib adequada para cálculos monetários
+        total = self.calc_sub_total() * (1 - discount_total)
+
+        return round(total, 2)
