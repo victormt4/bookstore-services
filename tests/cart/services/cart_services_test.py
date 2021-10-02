@@ -1,5 +1,8 @@
+import pickle
+
 import pytest
 
+from src.cart.dto import ProductCart
 from src.cart.errors import OutOfStockError, NotFoundOnCartError
 from src.cart.services.cart_services import CartServices
 from src.errors import NotFoundError
@@ -7,7 +10,7 @@ from src.product.services.product_services import ProductServices
 
 
 def test_add_product_to_cart():
-    cart = CartServices(ProductServices(), {2: 0})
+    cart = CartServices(ProductServices(), {})
 
     # Adiciona 15 produtos id = 1 e 1 produto id = 2
     cart.add_product_to_cart(1, 10)
@@ -17,9 +20,9 @@ def test_add_product_to_cart():
     cart_data = cart.get_cart_data()
 
     assert 1 in cart_data
-    assert cart_data[1] == 15
+    assert cart_data[1].quantity == 15
     assert 2 in cart_data
-    assert cart_data[2] == 1
+    assert cart_data[2].quantity == 1
 
     # Tentando adicionar um produto que não existe no sistema
     with pytest.raises(NotFoundError):
@@ -31,7 +34,14 @@ def test_add_product_to_cart():
 
 
 def test_remove_product_from_cart():
-    cart = CartServices(ProductServices(), {1: 10, 2: 5})
+    # Criando um carrinho simulado dados serializados de uma sessão
+    product_service = ProductServices()
+    cart = CartServices(product_service, {
+        'cart': pickle.dumps({
+            1: ProductCart(product_service.get_product(1), 10),
+            2: ProductCart(product_service.get_product(2), 5)
+        })
+    })
 
     # Remove 1 do produto id = 1, e remove o produto id = 2 por completo
     cart.remove_product_from_cart(1, 1)
@@ -39,7 +49,7 @@ def test_remove_product_from_cart():
 
     cart_data = cart.get_cart_data()
 
-    assert cart_data[1] == 9
+    assert cart_data[1].quantity == 9
     assert 2 not in cart_data
 
     # Tentando remover um produto que não existe no sistema
