@@ -1,10 +1,9 @@
-from typing import Dict
-
+from typing import Dict, Callable
+from flask import session
+from pickle import loads, dumps
 from src.cart.dto import ProductCart
 from src.cart.errors import OutOfStockError, NotFoundOnCartError
 from src.product.services.product_services import ProductServices
-from flask import session
-import pickle
 
 
 class CartServices:
@@ -15,8 +14,22 @@ class CartServices:
         self.__cart_data = {}
         self.__session_object = session_object
         if 'cart' in session_object:
-            self.__cart_data = pickle.loads(session_object['cart'])
+            self.__cart_data = loads(session_object['cart'])
 
+    def __update_session_cart(f: Callable):
+        """
+        Decorator que serializa os dados do carrinho para o objeto da sessão do Flask
+        :return: Callable
+        """
+
+        def wrapper(*args):
+            f(*args)
+            self = args[0]
+            self.__session_object['cart'] = dumps(self.__cart_data)
+
+        return wrapper
+
+    @__update_session_cart
     def add_product_to_cart(self, product_id: int, quantity: int):
         product = self.__product_services.get_product(product_id)
 
@@ -32,6 +45,7 @@ class CartServices:
 
         self.__cart_data[product.id] = product_in_cart
 
+    @__update_session_cart
     def remove_product_from_cart(self, product_id: int, quantity: int):
         product = self.__product_services.get_product(product_id)
 
@@ -47,6 +61,7 @@ class CartServices:
         else:
             self.__cart_data[product.id].quantity = new_quantity
 
+    @__update_session_cart
     def clear_cart(self):
         self.__cart_data = {}
 
