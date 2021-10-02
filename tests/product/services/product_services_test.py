@@ -1,5 +1,5 @@
 import pytest
-from src.product.dto.product import Product
+from src.product.entities import Product
 from src.product.services.product_services import ProductServices
 from src.errors import NotFoundError
 

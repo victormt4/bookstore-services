@@ -2,7 +2,7 @@ from json import load
 from typing import List
 
 from src.errors import NotFoundError
-from src.product.dto.product import Product
+from src.product.entities import Product
 
 
 class ProductServices:
