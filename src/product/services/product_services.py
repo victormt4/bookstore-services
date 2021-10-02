@@ -1,6 +1,7 @@
 from json import load
 from typing import List
 
+from src.errors import NotFoundError
 from src.product.dto.product import Product
 
 
@@ -22,3 +23,15 @@ def get_product_list() -> List[Product]:
                 product_dict['users_who_liked']
             ) for product_dict in load(fp)
         ]
+
+
+def get_product(product_id: int) -> Product:
+    """
+    Get a product by id
+    :rtype: Product
+    """
+    for product in get_product_list():
+        if product.id == product_id:
+            return product
+
+    raise NotFoundError(f"Product #{product_id} not found")

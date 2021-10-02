@@ -1,8 +1,17 @@
 __version__ = '0.1.0'
 
 from flask import Flask
-from src.product.blueprints.product_list_blueprint import product_list_blueprint
+from flask_restx import Api
+
+from src.product.endpoints.product_endpoints import product_endpoint
+
+api = Api(
+    title='Bookstore Services',
+    version=__version__,
+    description='Rest services for bookStore app'
+)
+
+api.add_namespace(product_endpoint)
 
 app = Flask(__name__)
-
-app.register_blueprint(product_list_blueprint, url_prefix='/api/v1')
+api.init_app(app)
