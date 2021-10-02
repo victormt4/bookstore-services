@@ -1,6 +1,6 @@
 import pytest
 
-from src.cart.errors import OutOfStockError
+from src.cart.errors import OutOfStockError, NotFoundOnCartError
 from src.cart.services.cart_services import CartServices
 from src.errors import NotFoundError
 from src.product.services.product_services import ProductServices
@@ -46,6 +46,11 @@ def test_remove_product_from_cart():
     with pytest.raises(NotFoundError):
         cart.remove_product_from_cart(100, 1)
 
-    # Tentando adicionar um produto que não existe no carrinho
-    with pytest.raises(NotFoundError):
+    # Tentando remover um produto que não existe no carrinho
+    with pytest.raises(NotFoundOnCartError):
         cart.remove_product_from_cart(3, 1)
+
+    # Limpando carrinho
+    cart.clear_cart()
+
+    assert len(cart.get_cart_data()) == 0

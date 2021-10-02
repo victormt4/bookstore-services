@@ -1,5 +1,4 @@
-from src.cart.errors import OutOfStockError
-from src.errors import NotFoundError
+from src.cart.errors import OutOfStockError, NotFoundOnCartError
 from src.product.services.product_services import ProductServices
 
 
@@ -22,13 +21,11 @@ class CartServices:
 
         self.__cart_data[product.id] = quantity_to_increase
 
-        return self
-
     def remove_product_from_cart(self, product_id: int, quantity: int):
         product = self.__product_services.get_product(product_id)
 
         if product.id not in self.__cart_data:
-            raise NotFoundError(f"Product {product_id} not found in cart")
+            raise NotFoundOnCartError(f"Product {product_id} not found in cart")
 
         quantity_in_cart = self.__cart_data[product.id]
         new_quantity = quantity_in_cart - quantity
@@ -39,7 +36,8 @@ class CartServices:
         else:
             self.__cart_data[product.id] = new_quantity
 
-        return self
+    def clear_cart(self):
+        self.__cart_data = []
 
     def get_cart_data(self) -> dict:
         return self.__cart_data
