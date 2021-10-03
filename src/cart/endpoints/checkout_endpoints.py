@@ -50,3 +50,8 @@ class CheckoutActivateDiscount(DefaultEndpoint):
         args = parser.parse_args()
         self._coupon_services.activate_coupon(args.get('coupon'))
         return {'message': 'Coupon has been activated'}
+
+    @checkout_endpoints.doc(description='Desativa todos os coupons de desconto')
+    def delete(self):
+        self._coupon_services.deactivate_coupons()
+        return {'message': 'All coupons have been deactivated'}

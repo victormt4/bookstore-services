@@ -11,7 +11,7 @@ from src.errors import NotFoundError
 class CouponServices:
     __active_coupons: Dict[str, Coupon]
 
-    def __init__(self, session_object: session, coupon_limit:int = 1):
+    def __init__(self, session_object: session, coupon_limit: int = 1):
         """
         :param session_object: objeto da dessão
         :param coupon_limit: quantidade de coupons ativados ao mesmo tempo
@@ -68,4 +68,15 @@ class CouponServices:
         self.__session_object['active_coupons'] = pickle.dumps(self.__active_coupons)
 
     def get_active_coupons(self):
+        """
+        Retorna um dicinário de coupons, indexado pelo código do coupon
+        :return: Dict[str, Coupon]
+        """
         return self.__active_coupons
+
+    def deactivate_coupons(self):
+        """
+        Desativa todos os coupons ativos
+        """
+        self.__active_coupons = {}
+        self.__session_object['active_coupons'] = pickle.dumps(self.__active_coupons)

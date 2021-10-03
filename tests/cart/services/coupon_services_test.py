@@ -48,3 +48,18 @@ def test_activate_coupon():
     # Tentando ativar um coupon acima do limite permitido
     with pytest.raises(CouponLimitError):
         coupon_service.activate_coupon('4asd12d1asd!98')
+
+
+def test_deactivate_coupons():
+    coupon_service = CouponServices({}, 10)
+
+    coupon_service.activate_coupon('ASD810dss9da!98')
+    coupon_service.activate_coupon('4asd12d1asd!98')
+
+    coupons = coupon_service.get_active_coupons()
+
+    assert len(coupons) == 2
+
+    coupon_service.deactivate_coupons()
+
+    assert len(coupon_service.get_active_coupons()) == 0
