@@ -39,6 +39,8 @@ class CartServices:
         Adiciona um produto no carrinho
         :param product_id: int
         :param quantity: int
+        :raises NotFoundError
+        :raises OutOfStockError
         """
         product = self.__product_services.get_product(product_id)
 
@@ -60,6 +62,8 @@ class CartServices:
         Remove um produto do carrinho
         :param product_id: int
         :param quantity: int
+        :raises NotFoundError
+        :raises NotFoundOnCartError
         """
         product = self.__product_services.get_product(product_id)
 

@@ -7,6 +7,7 @@ class CheckoutServices:
     def __init__(self, cart_services: CartServices, coupon_services: CouponServices):
         """
         :param cart_services: CartServices
+        :param coupon_services: CouponServices
         """
         self.__cart = cart_services
         self.__coupon = coupon_services
@@ -35,7 +36,7 @@ class CheckoutServices:
         if discount_total >= 1:
             raise CouponLimitError
 
-        # Em uma situação real deve usar uma lib adequada para cálculos monetários
+        # TODO: Em uma situação real deve usar uma lib adequada para cálculos monetários
         total = self.calc_sub_total() * (1 - discount_total)
 
         return round(total, 2)

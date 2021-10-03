@@ -30,6 +30,7 @@ class ProductServices:
         """
         Get a product by id
         :rtype: Product
+        :raises NotFoundError
         """
         for product in self.get_product_list():
             if product.id == product_id:

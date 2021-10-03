@@ -34,6 +34,7 @@ class CouponServices:
         """
         Busca um coupon pelo código
         :rtype: Coupon
+        :raises NotFoundError
         """
         coupons = self.get_coupons()
 
@@ -44,6 +45,12 @@ class CouponServices:
         raise NotFoundError(f"Coupon #{code} not found")
 
     def activate_coupon(self, code: str):
+        """
+        Ativa um cupom
+        :param code: str Código do cupom
+        :raises CouponAlreadyActiveError: Quando o cupom já foi ativo
+        :raises NotFoundError
+        """
         coupon = self.get_coupon(code)
 
         if coupon.code in self.__active_coupons:
