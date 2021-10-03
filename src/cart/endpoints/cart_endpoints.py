@@ -31,7 +31,8 @@ class CartList(Resource):
         )
         super().__init__(*args, **kwargs)
 
-    @cart_endpoints.marshal_list_with(product_cart_model, description='Lista de produtos no carrinho de compras')
+    @cart_endpoints.doc(description='Lista os produtos do carrinho de compras')
+    @cart_endpoints.marshal_list_with(product_cart_model)
     def get(self):
         cart_data = list(self.__cart_service.get_cart_data().values())
         if len(cart_data):

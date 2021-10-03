@@ -21,6 +21,7 @@ class ProductList(Resource):
         self.__services = ProductServices()
         super().__init__(*args, **kwargs)
 
-    @product_endpoints.marshal_list_with(product_model, description='Retorna uma lista de produtos')
+    @product_endpoints.doc(description='Retorna uma lista de produtos')
+    @product_endpoints.marshal_list_with(product_model)
     def get(self):
         return [vars(product) for product in self.__services.get_product_list()]

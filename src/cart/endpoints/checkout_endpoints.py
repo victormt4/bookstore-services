@@ -35,7 +35,8 @@ class DefaultEndpoint(Resource):
 
 @checkout_endpoints.route('/total')
 class CheckoutTotal(DefaultEndpoint):
-    @checkout_endpoints.marshal_with(checkout_totals_model)
+    @checkout_endpoints.doc(description='Calcula os totais do carrinho de compras')
+    @checkout_endpoints.marshal_with(checkout_totals_model, description='Objeto com os totais calculados')
     def get(self):
         return self._checkout_services.get_totals()
 
