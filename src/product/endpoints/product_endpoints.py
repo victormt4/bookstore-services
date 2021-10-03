@@ -7,6 +7,7 @@ product_model = product_endpoints.model('Product', {
     'id': fields.Integer(required=True, description='Id'),
     'name': fields.String(required=True, description='Nome'),
     'author': fields.String(required=True, description='Autor/fabricante do produto'),
+    'description': fields.String(required=True, description='Descrição do produto'),
     'picture': fields.String(required=True, description='Url da imagem'),
     'category': fields.String(required=True, description='Categoria'),
     'stock': fields.Integer(required=True, description='Quantidade em estoque,'),
