@@ -19,6 +19,13 @@ app = Flask(__name__)
 app.secret_key = getenv('FLASK_SECRET_KEY', urandom(16))
 app.config['RESTX_VALIDATE'] = True
 
+
+@app.after_request
+def set_cors(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
 # Configurando flask-restx
 api = Api(
     title='Bookstore Services',
