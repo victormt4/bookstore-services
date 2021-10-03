@@ -9,6 +9,7 @@ from flask_restx import Api
 
 from src.product.endpoints.product_endpoints import product_endpoints
 from src.cart.endpoints.cart_endpoints import cart_endpoints
+from src.cart.endpoints.checkout_endpoints import checkout_endpoints
 
 # Carregando variáveis de ambiente
 load_dotenv()
@@ -27,4 +28,5 @@ api = Api(
 
 api.add_namespace(product_endpoints)
 api.add_namespace(cart_endpoints)
+api.add_namespace(checkout_endpoints)
 api.init_app(app)

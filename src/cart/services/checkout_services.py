@@ -1,3 +1,4 @@
+from src.cart.dto import CheckoutTotals
 from src.cart.errors import CouponLimitError
 from src.cart.services.cart_services import CartServices
 from src.cart.services.coupon_services import CouponServices
@@ -40,3 +41,10 @@ class CheckoutServices:
         total = self.calc_sub_total() * (1 - discount_total)
 
         return round(total, 2)
+
+    def get_totals(self) -> CheckoutTotals:
+        """
+        Retorna um objeto com os totais do checkout
+        :return: CheckoutTotals
+        """
+        return CheckoutTotals(self.calc_sub_total(), self.calc_total())

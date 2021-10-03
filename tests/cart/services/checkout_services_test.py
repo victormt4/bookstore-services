@@ -40,7 +40,7 @@ def test_calc_subtotal():
 def test_calc_total():
     session = {}
     cart = CartServices(ProductServices(), session)
-    coupon = CouponServices(session)
+    coupon = CouponServices(session, 10)
     checkout = CheckoutServices(cart, coupon)
 
     cart.add_product_to_cart(1, 10)

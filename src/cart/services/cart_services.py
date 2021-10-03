@@ -68,7 +68,7 @@ class CartServices:
         product = self.__product_services.get_product(product_id)
 
         if product.id not in self.__cart_data:
-            raise NotFoundOnCartError(f"Product {product_id} not found in cart")
+            raise NotFoundOnCartError(f"Product #{product_id} not found in cart")
 
         # Caso o produto tenha sido zerado no carrinho, remova do dicionário
         if quantity <= 0:
@@ -87,7 +87,7 @@ class CartServices:
         product = self.__product_services.get_product(product_id)
 
         if product.id not in self.__cart_data:
-            raise NotFoundOnCartError(f"Product {product_id} not found in cart")
+            raise NotFoundOnCartError(f"Product #{product_id} not found in cart")
 
         self.__cart_data.pop(product.id)
 
