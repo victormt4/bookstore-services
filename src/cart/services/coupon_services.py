@@ -12,10 +12,10 @@ class CouponServices:
     __active_coupons: Dict[str, Coupon]
 
     def __init__(self, session_object: session):
-        self.__session = session
+        self.__session_object = session_object
         self.__active_coupons = {}
         if 'coupons' in session_object:
-            self.__active_coupons = pickle.loads(session_object['coupons'])
+            self.__active_coupons = pickle.loads(session_object['active_coupons'])
 
     def get_coupons(self) -> List[Coupon]:
         """
@@ -57,6 +57,7 @@ class CouponServices:
             raise CouponAlreadyActiveError(f"Coupon #{code} already active")
 
         self.__active_coupons[coupon.code] = coupon
+        self.__session_object['active_coupons'] = pickle.dumps(self.__active_coupons)
 
     def get_active_coupons(self):
         return self.__active_coupons
