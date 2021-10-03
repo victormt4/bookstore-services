@@ -4,7 +4,7 @@ Serviços do backend do [bookstore](https://github.com/victormt4/bookstore)
 
 ## Documentação da API disponível em
 
-[https://bookstore-services.herokuapp.com//](https://bookstore-vmt.herokuapp.com/)
+[https://bookstore-services.herokuapp.com/](https://bookstore-services.herokuapp.com/)
 
 ## Comandos para rodar projeto
 
