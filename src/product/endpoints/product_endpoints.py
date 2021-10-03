@@ -15,7 +15,7 @@ product_model = product_endpoints.model('Product', {
 })
 
 
-@product_endpoints.route('/')
+@product_endpoints.route('')
 class ProductList(Resource):
     def __init__(self, *args, **kwargs):
         self.__services = ProductServices()
