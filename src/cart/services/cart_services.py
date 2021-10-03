@@ -57,7 +57,7 @@ class CartServices:
         self.__cart_data[product.id] = product_in_cart
 
     @__update_session_cart
-    def remove_product_from_cart(self, product_id: int, quantity: int):
+    def update_product_quantity(self, product_id: int, quantity: int):
         """
         Remove um produto do carrinho
         :param product_id: int
@@ -70,14 +70,26 @@ class CartServices:
         if product.id not in self.__cart_data:
             raise NotFoundOnCartError(f"Product {product_id} not found in cart")
 
-        quantity_in_cart = self.__cart_data[product.id].quantity
-        new_quantity = quantity_in_cart - quantity
-
         # Caso o produto tenha sido zerado no carrinho, remova do dicionário
-        if new_quantity <= 0:
+        if quantity <= 0:
             self.__cart_data.pop(product.id)
         else:
-            self.__cart_data[product.id].quantity = new_quantity
+            self.__cart_data[product.id].quantity = quantity
+
+    @__update_session_cart
+    def remove_product_from_cart(self, product_id: int):
+        """
+        Remove um produto do carrinho
+        :param product_id: int
+        :raises NotFoundError
+        :raises NotFoundOnCartError
+        """
+        product = self.__product_services.get_product(product_id)
+
+        if product.id not in self.__cart_data:
+            raise NotFoundOnCartError(f"Product {product_id} not found in cart")
+
+        self.__cart_data.pop(product.id)
 
     @__update_session_cart
     def clear_cart(self):

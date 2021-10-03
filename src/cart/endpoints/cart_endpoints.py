@@ -17,9 +17,13 @@ product_cart_input_model = cart_endpoints.model('ProductCartInput', {
     'quantity': fields.Integer(required=True, min=1, description='Quantidade do produto a ser adicionado')
 })
 
+product_cart_input_parser = cart_endpoints.parser()
+product_cart_input_parser.add_argument('productId', type=int, location='json')
+product_cart_input_parser.add_argument('quantity', type=int, location='json')
+
 
 @cart_endpoints.route('')
-class Cart(Resource):
+class CartList(Resource):
     def __init__(self, *args, **kwargs):
         self.__cart_service = CartServices(
             ProductServices(),
@@ -36,12 +40,38 @@ class Cart(Resource):
 
     @cart_endpoints.doc(body=product_cart_input_model, description='Adiciona um produto no carrinho')
     def post(self):
-        parser = cart_endpoints.parser()
-        parser.add_argument('productId', type=int, location='json')
-        parser.add_argument('quantity', type=int, location='json')
-        args = parser.parse_args()
+        request_input = product_cart_input_parser.parse_args()
         self.__cart_service.add_product_to_cart(
-            args.get('productId'),
-            args.get('quantity')
+            request_input.get('productId'),
+            request_input.get('quantity')
         )
-        return {'message': 'Produto adicionado'}
+        return {'message': 'Product added to cart'}
+
+    @cart_endpoints.doc(body=product_cart_input_model, description='Atualiza a quantidade do produto no carrinho')
+    def put(self):
+        request_input = product_cart_input_parser.parse_args()
+        self.__cart_service.update_product_quantity(
+            request_input.get('productId'),
+            request_input.get('quantity')
+        )
+        return {'message': 'Product quantity has been updated'}
+
+    @cart_endpoints.doc(description='Limpa todos os dados do carrinho')
+    def delete(self):
+        self.__cart_service.clear_cart()
+        return {'message': 'All products have been removed from the cart'}
+
+
+@cart_endpoints.route('/<int:product_id>')
+class Cart(Resource):
+    def __init__(self, *args, **kwargs):
+        self.__cart_service = CartServices(
+            ProductServices(),
+            session
+        )
+        super().__init__(*args, **kwargs)
+
+    @cart_endpoints.doc(description='Remove um produto do carrinho', params={'product_id': 'Id do produto'})
+    def delete(self, product_id):
+        self.__cart_service.remove_product_from_cart(product_id)
+        return {'message': 'Product has been removed'}

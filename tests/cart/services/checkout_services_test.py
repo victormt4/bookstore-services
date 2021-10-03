@@ -20,13 +20,13 @@ def test_calc_subtotal():
     assert checkout.calc_sub_total() == 17.50
 
     # Removendo 1 produto do produto id = 1
-    cart.remove_product_from_cart(1, 1)
+    cart.update_product_quantity(1, 9)
 
     assert checkout.calc_sub_total() == 16.00
 
     # Removendo todos os produtos id = 1
 
-    cart.remove_product_from_cart(1, 9)
+    cart.update_product_quantity(1, 0)
 
     assert checkout.calc_sub_total() == 2.50
 

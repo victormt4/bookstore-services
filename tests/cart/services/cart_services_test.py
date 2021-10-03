@@ -24,6 +24,10 @@ def test_add_product_to_cart():
     assert 2 in cart_data
     assert cart_data[2].quantity == 1
 
+    cart.update_product_quantity(1, 5)
+
+    assert cart.get_cart_data()[1].quantity == 5
+
     # Tentando adicionar um produto que não existe no sistema
     with pytest.raises(NotFoundError):
         cart.add_product_to_cart(100, 1)
@@ -33,7 +37,7 @@ def test_add_product_to_cart():
         cart.add_product_to_cart(3, 10)
 
 
-def test_remove_product_from_cart():
+def test_update_product_quantity():
     # Criando um carrinho simulado dados serializados de uma sessão
     product_service = ProductServices()
     cart = CartServices(product_service, {
@@ -43,24 +47,44 @@ def test_remove_product_from_cart():
         })
     })
 
-    # Remove 1 do produto id = 1, e remove o produto id = 2 por completo
-    cart.remove_product_from_cart(1, 1)
-    cart.remove_product_from_cart(2, 5)
+    cart.update_product_quantity(1, 1)
+    cart.update_product_quantity(2, 0)
 
     cart_data = cart.get_cart_data()
 
-    assert cart_data[1].quantity == 9
+    assert cart_data[1].quantity == 1
     assert 2 not in cart_data
 
     # Tentando remover um produto que não existe no sistema
     with pytest.raises(NotFoundError):
-        cart.remove_product_from_cart(100, 1)
+        cart.update_product_quantity(100, 1)
 
     # Tentando remover um produto que não existe no carrinho
     with pytest.raises(NotFoundOnCartError):
-        cart.remove_product_from_cart(3, 1)
+        cart.update_product_quantity(3, 1)
 
     # Limpando carrinho
     cart.clear_cart()
 
     assert len(cart.get_cart_data()) == 0
+
+
+def test_remove_product_from_cart():
+    product_service = ProductServices()
+    cart = CartServices(product_service, {
+        'cart': pickle.dumps({
+            1: ProductCart(product_service.get_product(1), 10),
+            2: ProductCart(product_service.get_product(2), 5)
+        })
+    })
+
+    cart.remove_product_from_cart(1)
+
+    cart_data = cart.get_cart_data()
+
+    assert 1 not in cart_data
+    assert 2 in cart_data
+
+    cart.remove_product_from_cart(2)
+
+    assert 2 not in cart_data
