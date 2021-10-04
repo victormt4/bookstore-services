@@ -18,6 +18,10 @@ Para instalar as dependências necessárias
 
 Roda o projeto em modo de desenvolvimento no [http://localhost:5000](http://localhost:5000)
 
+### `poetry run pytest`
+
+Para rodar os testes automatizados
+
 ### Utilizando o [Docker](https://docs.docker.com/)
 
 ### `docker build -t <NOME_IMAGEM> .`
