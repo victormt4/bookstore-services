@@ -20,16 +20,15 @@ Roda o projeto em modo de desenvolvimento no [http://localhost:5000](http://loca
 
 ### Utilizando o [Docker](https://docs.docker.com/)
 
-###`docker build -t <NOME_IMAGEM> .`
+### `docker build -t <NOME_IMAGEM> .`
 
 Para gerar uma build da imagem a partir do Dockerfile do projeto
 
-###`docker run -p 5000:5000 -v $PWD:/var/bookstore-services <NOME_IMAGEM>`
+### `docker run -p 5000:5000 -v $PWD:/var/bookstore-services <NOME_IMAGEM>`
 
 Para inicializar o servidor da aplicação dentro de um container, em modo de desenvolvimento no endereço [http://localhost:5000](http://localhost:5000)
 
-
-###`bash start-dev-server.sh`
+### `bash start-dev-server.sh`
 
 Script para executar os comandos do docker citados acima
 
