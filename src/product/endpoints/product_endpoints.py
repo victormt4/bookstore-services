@@ -8,10 +8,11 @@ product_model = product_endpoints.model('Product', {
     'name': fields.String(required=True, description='Nome'),
     'author': fields.String(required=True, description='Autor/fabricante do produto'),
     'description': fields.String(required=True, description='Descrição do produto'),
-    'picture': fields.String(required=True, description='Url da imagem'),
-    'category': fields.String(required=True, description='Categoria'),
+    'picture': fields.String(required=True, description='Url da imagem', example='https://image.com/livro.jpg'),
+    'category': fields.String(required=True, description='Categoria', example='Manga'),
     'stock': fields.Integer(required=True, description='Quantidade em estoque,'),
-    'price': fields.Float(required=True, description='Preço'),
+    'price': fields.Integer(required=True, description='Preço do produto em centavos', example=150),
+    'priceText': fields.String(required=True, description='Preço do produto formatado em reais', example='R$ 1,50'),
     'likes': fields.Integer(required=False, default=0, description='Quantidade de likes')
 })
 

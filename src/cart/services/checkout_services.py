@@ -1,3 +1,7 @@
+from functools import reduce
+from money.money import Money
+from money.currency import Currency
+
 from src.cart.dto import CheckoutTotals
 from src.cart.errors import CouponLimitError
 from src.cart.services.cart_services import CartServices
@@ -13,18 +17,24 @@ class CheckoutServices:
         self.__cart = cart_services
         self.__coupon = coupon_services
 
-    def calc_sub_total(self) -> float:
+    def calc_sub_total(self) -> int:
         """
         Calcula o sub total de todos os produtos do carrinho
-        :return: float
+        :return: int Valor em centavos
         """
         cart_data = self.__cart.get_cart_data()
-        return sum(product_in_cart.product.price * product_in_cart.quantity for product_in_cart in cart_data.values())
 
-    def calc_total(self) -> float:
+        def sum_func(total_sum, current):
+            price = Money.from_sub_units(current.product.price, Currency.BRL)
+            return total_sum + (price * current.quantity).sub_units
+
+        total = reduce(sum_func, cart_data.values(), 0)
+        return total
+
+    def calc_total(self) -> int:
         """
         Calcula o total de todos os produtos do carrinho (Aplicando coupons, fretes, outras taxas)
-        :return: float
+        :return: int Valor em centavos
         """
         active_coupons = self.__coupon.get_active_coupons().values()
 
@@ -37,10 +47,9 @@ class CheckoutServices:
         if discount_total >= 1:
             raise CouponLimitError
 
-        # TODO: Em uma situação real deve usar uma lib adequada para cálculos monetários
-        total = self.calc_sub_total() * (1 - discount_total)
+        total = Money.from_sub_units(self.calc_sub_total(), Currency.BRL) * (1 - discount_total)
 
-        return round(total, 2)
+        return total.sub_units
 
     def get_totals(self) -> CheckoutTotals:
         """

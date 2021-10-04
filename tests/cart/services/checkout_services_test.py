@@ -13,22 +13,22 @@ def test_calc_subtotal():
 
     assert checkout.calc_sub_total() == 0
 
-    # O valor do produto id = 1 custa 1.50 e o valor do produto id = 2 custa 2.50
+    # O valor do produto id = 1 custa 100 centavos e o valor do produto id = 2 custa 200 centavos
     cart.add_product_to_cart(1, 10)
     cart.add_product_to_cart(2, 1)
 
-    assert checkout.calc_sub_total() == 17.50
+    assert checkout.calc_sub_total() == 1200
 
     # Removendo 1 produto do produto id = 1
     cart.update_product_quantity(1, 9)
 
-    assert checkout.calc_sub_total() == 16.00
+    assert checkout.calc_sub_total() == 1100
 
     # Removendo todos os produtos id = 1
 
     cart.update_product_quantity(1, 0)
 
-    assert checkout.calc_sub_total() == 2.50
+    assert checkout.calc_sub_total() == 200
 
     # Limpando o carrinho
 
@@ -44,10 +44,11 @@ def test_calc_total():
     checkout = CheckoutServices(cart, coupon)
 
     cart.add_product_to_cart(1, 10)
+    # Adicionando cupom de 15% de desconto
     coupon.activate_coupon('ASD810dss9da!98')
 
-    assert checkout.calc_sub_total() == 15.00
-    assert checkout.calc_total() == 12.75
+    assert checkout.calc_sub_total() == 1000
+    assert checkout.calc_total() == 850
 
     # Tentando aplicar um desconto de 100%
     with pytest.raises(CouponLimitError):

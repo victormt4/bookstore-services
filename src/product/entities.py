@@ -1,4 +1,6 @@
 from typing import List
+from money.money import Money
+from money.currency import Currency
 
 
 class Product:
@@ -14,4 +16,5 @@ class Product:
         self.stock = stock
         self.users_who_liked = users_who_liked
         self.likes = len(users_who_liked)
-        self.price = product_id + 0.5
+        self.price = product_id * 100
+        self.priceText = Money.from_sub_units(self.price, Currency.BRL).format('pt_BR')

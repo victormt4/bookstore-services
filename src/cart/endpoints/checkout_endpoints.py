@@ -9,8 +9,11 @@ from src.product.services.product_services import ProductServices
 checkout_endpoints = Namespace('checkout', description='Endpoints para operações do checkout', path='/checkout')
 
 checkout_totals_model = checkout_endpoints.model('CheckoutTotals', {
-    'subTotal': fields.Float(description='Sub-total dos produtos no carrinho', min=0, attribute='sub_total'),
-    'total': fields.Float(description='Total dos produtos do carrinho, aplicando descontos/frete', min=0)
+    'subTotal': fields.Integer(description='Sub-total dos produtos no carrinho em centavos', min=0, attribute='sub_total', example=1000),
+    'total': fields.Integer(description='Total dos produtos do carrinho, aplicando descontos/frete', min=0, example=1500),
+    'subTotalText': fields.String(description='Sub-total dos produtos formatado em reais', example='R$ 10,00', attribute='sub_total_text'),
+    'totalText': fields.String(description='Total dos produtos formatado em reais', example='R$ 15,00', attribute='total_text')
+
 })
 
 checkout_coupon_model = checkout_endpoints.model('CheckoutCoupon', {
