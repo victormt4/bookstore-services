@@ -20,8 +20,9 @@ class ProductServices:
         :rtype: Product
         :raises NotFoundError
         """
-        for product in self.get_product_list():
-            if product.id == product_id:
-                return product
+        product = Product.query.get(product_id)
 
-        raise NotFoundError(f"Product #{product_id} not found")
+        if product is None:
+            raise NotFoundError(f"Product #{product_id} not found")
+
+        return product
