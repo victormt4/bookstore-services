@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: bookstore_services
+    container_name: bookstore_services_app
+    restart: unless-stopped
+    volumes:
+      - ./:/var/bookstore-services
+    networks:
+      - bookstore_services
+    ports:
+      - "5000:5000"
+    command: poetry run gunicorn wsgi:app --bind 0.0.0.0:5000 --workers 4 --timeout 120
+  db:
+    image: postgres:11.6-alpine
+    container_name: bookstore_services_db
+    restart: unless-stopped
+    networks:
+      - bookstore_services
+    ports:
+      - "5433:5432"
+
+
+networks:
+  bookstore_services:
+    driver: bridge
