@@ -10,6 +10,7 @@ from flask_migrate import Migrate
 
 from src.routes import register_routes
 from src.middleware import register_middleware
+from src.commands import register_commands
 
 # Carregando variáveis de ambiente
 load_dotenv()
@@ -24,6 +25,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv('FLASK_DATABASE_URL')
 db = SQLAlchemy(app)
 Migrate(app, db)
 
-# Registrando rotas e middlewares
+# Registrando rotas/middlewares/comandos
 register_routes(app)
 register_middleware(app)
+register_commands(app)
