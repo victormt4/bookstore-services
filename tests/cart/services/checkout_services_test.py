@@ -4,11 +4,11 @@ from src.cart.errors import CouponLimitError
 from src.cart.services.cart_services import CartServices
 from src.cart.services.checkout_services import CheckoutServices
 from src.cart.services.coupon_services import CouponServices
-from src.product.services.product_services import ProductServices
+from tests.cart.services.product_service_mock import ProductServicesMock
 
 
 def test_calc_subtotal():
-    cart = CartServices(ProductServices(), {})
+    cart = CartServices(ProductServicesMock(), {})
     checkout = CheckoutServices(cart, CouponServices({}))
 
     assert checkout.calc_sub_total() == 0
@@ -39,7 +39,7 @@ def test_calc_subtotal():
 
 def test_calc_total():
     session = {}
-    cart = CartServices(ProductServices(), session)
+    cart = CartServices(ProductServicesMock(), session)
     coupon = CouponServices(session, 10)
     checkout = CheckoutServices(cart, coupon)
 
