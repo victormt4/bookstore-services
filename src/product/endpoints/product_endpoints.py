@@ -1,4 +1,6 @@
 from flask_restx import Namespace, Resource, fields
+
+from src.product.repo.product_repo import ProductRepo
 from src.product.services.product_services import ProductServices
 
 product_endpoints = Namespace('product', description='Endpoints relacionados aos produtos da loja', path='/product')
@@ -20,7 +22,7 @@ product_model = product_endpoints.model('Product', {
 @product_endpoints.route('')
 class ProductList(Resource):
     def __init__(self, *args, **kwargs):
-        self.__services = ProductServices()
+        self.__services = ProductServices(ProductRepo())
         super().__init__(*args, **kwargs)
 
     @product_endpoints.doc(description='Retorna uma lista de produtos')

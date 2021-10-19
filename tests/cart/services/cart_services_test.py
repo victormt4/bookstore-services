@@ -6,11 +6,10 @@ from src.cart.dto import ProductCart
 from src.cart.errors import OutOfStockError, NotFoundOnCartError
 from src.cart.services.cart_services import CartServices
 from src.errors import NotFoundError
-from tests.cart.services.product_service_mock import ProductServicesMock
 
 
-def test_add_product_to_cart():
-    cart = CartServices(ProductServicesMock(), {})
+def test_add_product_to_cart(product_services):
+    cart = CartServices(product_services, {})
 
     # Adiciona 15 produtos id = 1 e 1 produto id = 2
     cart.add_product_to_cart(1, 10)
@@ -37,13 +36,12 @@ def test_add_product_to_cart():
         cart.add_product_to_cart(3, 10)
 
 
-def test_update_product_quantity():
+def test_update_product_quantity(product_services):
     # Criando um carrinho simulado dados serializados de uma sessão
-    product_service = ProductServicesMock()
-    cart = CartServices(product_service, {
+    cart = CartServices(product_services, {
         'cart': pickle.dumps({
-            1: ProductCart(product_service.get_product(1), 10),
-            2: ProductCart(product_service.get_product(2), 5)
+            1: ProductCart(product_services.get_product(1), 10),
+            2: ProductCart(product_services.get_product(2), 5)
         })
     })
 
@@ -69,12 +67,11 @@ def test_update_product_quantity():
     assert len(cart.get_cart_data()) == 0
 
 
-def test_remove_product_from_cart():
-    product_service = ProductServicesMock()
-    cart = CartServices(product_service, {
+def test_remove_product_from_cart(product_services):
+    cart = CartServices(product_services, {
         'cart': pickle.dumps({
-            1: ProductCart(product_service.get_product(1), 10),
-            2: ProductCart(product_service.get_product(2), 5)
+            1: ProductCart(product_services.get_product(1), 10),
+            2: ProductCart(product_services.get_product(2), 5)
         })
     })
 

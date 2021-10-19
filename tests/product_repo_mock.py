@@ -3,12 +3,12 @@ from json import load
 
 from src.errors import NotFoundError
 from src.product.entities import Product
-from src.product.services.product_services import ProductServices
+from src.shared.contracts.repository import Repository
 
 
-class ProductServicesMock(ProductServices):
+class ProductRepoMock(Repository):
 
-    def get_product_list(self) -> List[Product]:
+    def get_all(self) -> List[Product]:
         with open('storage/products.json', 'r') as fp:
             product_list = []
             for product_dict in load(fp):
@@ -27,8 +27,8 @@ class ProductServicesMock(ProductServices):
 
             return product_list
 
-    def get_product(self, product_id: int) -> Product:
-        for product in self.get_product_list():
+    def get(self, product_id: int) -> Product:
+        for product in self.get_all():
             if product.id == product_id:
                 return product
 
