@@ -1,6 +1,7 @@
 from flask import session
 from flask_restx import Namespace, Resource, fields
 
+from src.catalog.repo.product_repo import ProductRepo
 from src.purchase.services.cart_services import CartServices
 from src.catalog.services.product_services import ProductServices
 from src.catalog.endpoints.product_endpoints import product_model
@@ -22,19 +23,22 @@ product_cart_input_parser.add_argument('productId', type=int, location='json')
 product_cart_input_parser.add_argument('quantity', type=int, location='json')
 
 
-@cart_endpoints.route('')
-class CartList(Resource):
+class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
-        self.__cart_service = CartServices(
-            ProductServices(),
+        self._cart_service = CartServices(
+            ProductServices(ProductRepo()),
             session
         )
         super().__init__(*args, **kwargs)
 
+
+@cart_endpoints.route('')
+class CartList(DefaultEndpoint):
+
     @cart_endpoints.doc(description='Lista os produtos do carrinho de compras')
     @cart_endpoints.marshal_list_with(product_cart_model)
     def get(self):
-        cart_data = list(self.__cart_service.get_cart_data().values())
+        cart_data = list(self._cart_service.get_cart_data().values())
         if len(cart_data):
             return cart_data
         return []
@@ -42,7 +46,7 @@ class CartList(Resource):
     @cart_endpoints.doc(body=product_cart_input_model, description='Adiciona um produto no carrinho')
     def post(self):
         request_input = product_cart_input_parser.parse_args()
-        self.__cart_service.add_product_to_cart(
+        self._cart_service.add_product_to_cart(
             request_input.get('productId'),
             request_input.get('quantity')
         )
@@ -51,7 +55,7 @@ class CartList(Resource):
     @cart_endpoints.doc(body=product_cart_input_model, description='Atualiza a quantidade do produto no carrinho')
     def put(self):
         request_input = product_cart_input_parser.parse_args()
-        self.__cart_service.update_product_quantity(
+        self._cart_service.update_product_quantity(
             request_input.get('productId'),
             request_input.get('quantity')
         )
@@ -59,20 +63,14 @@ class CartList(Resource):
 
     @cart_endpoints.doc(description='Limpa todos os dados do carrinho')
     def delete(self):
-        self.__cart_service.clear_cart()
+        self._cart_service.clear_cart()
         return {'message': 'All products have been removed from the cart'}
 
 
 @cart_endpoints.route('/<int:product_id>')
-class Cart(Resource):
-    def __init__(self, *args, **kwargs):
-        self.__cart_service = CartServices(
-            ProductServices(),
-            session
-        )
-        super().__init__(*args, **kwargs)
+class Cart(DefaultEndpoint):
 
     @cart_endpoints.doc(description='Remove um produto do carrinho', params={'product_id': 'Id do produto'})
     def delete(self, product_id):
-        self.__cart_service.remove_product_from_cart(product_id)
+        self._cart_service.remove_product_from_cart(product_id)
         return {'message': 'Product has been removed'}
