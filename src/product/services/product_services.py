@@ -11,8 +11,8 @@ class ProductServices:
         Return a list of Product
         :rtype: List[Product]
         """
-        with open('storage/products.json', 'r') as fp:
-            return list(Product.query.all())
+        return list(Product.query.all())
+
 
     def get_product(self, product_id: int) -> Product:
         """
