@@ -8,6 +8,9 @@ def register_commands(app):
         Insere os produtos no banco de dados
         """
         from src.catalog.entities import Product
+
+        print('\nSeeding...')
+
         with open('storage/products.json', 'r') as fp:
             from src import db
 

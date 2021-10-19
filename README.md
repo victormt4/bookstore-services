@@ -6,33 +6,30 @@ Serviços do backend do [bookstore](https://github.com/victormt4/bookstore)
 
 [https://bookstore-services.herokuapp.com/](https://bookstore-services.herokuapp.com/)
 
-## Comandos para rodar projeto
+## Instruções para rodar o projeto localmente
 
-### Utilizando o [poetry](https://python-poetry.org/)
+### Requisitos na máquina do host
 
-### `poetry install`
+* [Docker](https://docs.docker.com/get-started/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
-Para instalar as dependências necessárias
+### Variáveis de ambiente
 
-### `poetry run flask start`
+Copiar o .env.example para .env e definir a variável "FLASK_SECRET_KEY" com uma chave aleatória, ela serve para
+criptografar o cookie de sessão do Flask
 
-Roda o projeto em modo de desenvolvimento no [http://localhost:5000](http://localhost:5000)
+### Comandos para inicializar aplicação
 
-### `poetry run pytest`
+`bash start-dev-server.sh`
 
-Para rodar os testes automatizados
+Irá gerar uma build do projeto, instalar as dependências da aplicação e inicializar os containers necessários
 
-### Utilizando o [Docker](https://docs.docker.com/)
+### Comandos para rodar os testes automatizados
 
-### `docker build -t <NOME_IMAGEM> .`
+`bash run-tests.sh`
 
-Para gerar uma build da imagem a partir do Dockerfile do projeto
+Irá subir os containers da aplicação e rodar os testes utilizando o pytest.
 
-### `docker run -p 5000:5000 -v $PWD:/var/bookstore-services <NOME_IMAGEM>`
+`docker-compose exec app poetry run pytest`
 
-Para inicializar o servidor da aplicação dentro de um container, em modo de desenvolvimento no endereço [http://localhost:5000](http://localhost:5000)
-
-### `bash start-dev-server.sh`
-
-Script para executar os comandos do docker citados acima
-
+Utilize esse comando caso os containers já estejam em execução pelo "start-dev-server.sh"

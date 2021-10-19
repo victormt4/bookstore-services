@@ -1,13 +1,13 @@
 services:
   app:
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ./docker/Dockerfile
     image: bookstore_services
     container_name: bookstore_services_app
     restart: unless-stopped
     volumes:
-      - ./:/var/bookstore-services
+      - ../:/var/bookstore-services
     networks:
       - bookstore_services
     ports:
@@ -16,7 +16,12 @@ services:
   db:
     image: postgres:11.6-alpine
     container_name: bookstore_services_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     restart: unless-stopped
+    volumes:
+      - ../docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - bookstore_services
     ports:

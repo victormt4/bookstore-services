@@ -1,4 +1,9 @@
 #!/bin/bash
 
-docker build -t victormt4/bookstore-services .
-docker run -p 5000:5000 -v $PWD:/var/bookstore-services victormt4/bookstore-services
+cd docker
+docker-compose down
+docker-compose build
+docker-compose up -d
+docker-compose exec app poetry run flask db upgrade
+docker-compose exec app poetry run flask seed
+docker-compose up
