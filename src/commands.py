@@ -4,7 +4,7 @@ from json import load
 def register_commands(app):
     @app.cli.command("seed")
     def seed():
-        from src.product.entities import Product
+        from src.catalog.entities import Product
         with open('storage/products.json', 'r') as fp:
             from src import db
 

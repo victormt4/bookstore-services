@@ -1,10 +1,10 @@
 from flask import session
 from flask_restx import Namespace, Resource, fields
 
-from src.cart.services.cart_services import CartServices
-from src.cart.services.checkout_services import CheckoutServices
-from src.cart.services.coupon_services import CouponServices
-from src.product.services.product_services import ProductServices
+from src.purchase.services.cart_services import CartServices
+from src.purchase.services.checkout_services import CheckoutServices
+from src.purchase.services.coupon_services import CouponServices
+from src.catalog.services.product_services import ProductServices
 
 checkout_endpoints = Namespace('checkout', description='Endpoints para operações do checkout', path='/checkout')
 

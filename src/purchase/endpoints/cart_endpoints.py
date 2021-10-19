@@ -1,9 +1,9 @@
 from flask import session
 from flask_restx import Namespace, Resource, fields
 
-from src.cart.services.cart_services import CartServices
-from src.product.services.product_services import ProductServices
-from src.product.endpoints.product_endpoints import product_model
+from src.purchase.services.cart_services import CartServices
+from src.catalog.services.product_services import ProductServices
+from src.catalog.endpoints.product_endpoints import product_model
 
 cart_endpoints = Namespace('cart', description='Endpoints para operações no carrinho da loja', path='/cart')
 

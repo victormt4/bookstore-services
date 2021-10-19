@@ -1,9 +1,9 @@
 import pytest
 
-from src.cart.errors import CouponLimitError
-from src.cart.services.cart_services import CartServices
-from src.cart.services.checkout_services import CheckoutServices
-from src.cart.services.coupon_services import CouponServices
+from src.purchase.errors import CouponLimitError
+from src.purchase.services.cart_services import CartServices
+from src.purchase.services.checkout_services import CheckoutServices
+from src.purchase.services.coupon_services import CouponServices
 
 
 def test_calc_subtotal(product_services):

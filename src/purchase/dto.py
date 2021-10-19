@@ -1,6 +1,6 @@
 from money.money import Money
 from money.currency import Currency
-from src.product.entities import Product
+from src.catalog.entities import Product
 
 
 class ProductCart:

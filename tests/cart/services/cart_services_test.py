@@ -2,9 +2,9 @@ import pickle
 
 import pytest
 
-from src.cart.dto import ProductCart
-from src.cart.errors import OutOfStockError, NotFoundOnCartError
-from src.cart.services.cart_services import CartServices
+from src.purchase.dto import ProductCart
+from src.purchase.errors import OutOfStockError, NotFoundOnCartError
+from src.purchase.services.cart_services import CartServices
 from src.errors import NotFoundError
 
 

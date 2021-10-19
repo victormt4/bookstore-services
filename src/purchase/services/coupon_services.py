@@ -3,8 +3,8 @@ from json import load
 from flask import session
 import pickle
 
-from src.cart.entities import Coupon
-from src.cart.errors import CouponAlreadyActiveError, CouponLimitError
+from src.purchase.entities import Coupon
+from src.purchase.errors import CouponAlreadyActiveError, CouponLimitError
 from src.errors import NotFoundError
 
 

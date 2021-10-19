@@ -4,9 +4,9 @@ from flask_restx import Api
 
 
 def register_routes(app):
-    from src.product.endpoints.product_endpoints import product_endpoints
-    from src.cart.endpoints.cart_endpoints import cart_endpoints
-    from src.cart.endpoints.checkout_endpoints import checkout_endpoints
+    from src.catalog.endpoints.product_endpoints import product_endpoints
+    from src.purchase.endpoints.cart_endpoints import cart_endpoints
+    from src.purchase.endpoints.checkout_endpoints import checkout_endpoints
 
     # Configurando flask-restx
     api = Api(

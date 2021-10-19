@@ -2,10 +2,10 @@ from functools import reduce
 from money.money import Money
 from money.currency import Currency
 
-from src.cart.dto import CheckoutTotals
-from src.cart.errors import CouponLimitError
-from src.cart.services.cart_services import CartServices
-from src.cart.services.coupon_services import CouponServices
+from src.purchase.dto import CheckoutTotals
+from src.purchase.errors import CouponLimitError
+from src.purchase.services.cart_services import CartServices
+from src.purchase.services.coupon_services import CouponServices
 
 
 class CheckoutServices:

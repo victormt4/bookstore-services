@@ -2,7 +2,7 @@ from typing import List
 from json import load
 
 from src.errors import NotFoundError
-from src.product.entities import Product
+from src.catalog.entities import Product
 from src.shared.contracts.repository import Repository
 
 

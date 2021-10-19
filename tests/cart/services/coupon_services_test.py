@@ -1,8 +1,8 @@
 import pytest
 
-from src.cart.entities import Coupon
-from src.cart.errors import CouponAlreadyActiveError, CouponLimitError
-from src.cart.services.coupon_services import CouponServices
+from src.purchase.entities import Coupon
+from src.purchase.errors import CouponAlreadyActiveError, CouponLimitError
+from src.purchase.services.coupon_services import CouponServices
 from src.errors import NotFoundError
 
 

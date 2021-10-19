@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from src.product.entities import Product
+from src.catalog.entities import Product
 from src.shared.contracts.repository import Repository
 
 

@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 
-from src.product.repo.product_repo import ProductRepo
-from src.product.services.product_services import ProductServices
+from src.catalog.repo.product_repo import ProductRepo
+from src.catalog.services.product_services import ProductServices
 
 product_endpoints = Namespace('product', description='Endpoints relacionados aos produtos da loja', path='/product')
 

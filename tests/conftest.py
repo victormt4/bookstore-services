@@ -1,6 +1,6 @@
 import pytest
 
-from src.product.services.product_services import ProductServices
+from src.catalog.services.product_services import ProductServices
 from tests.product_repo_mock import ProductRepoMock
 
 

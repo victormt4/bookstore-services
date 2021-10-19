@@ -1,9 +1,9 @@
 from typing import Dict, Callable
 from flask import session
 from pickle import loads, dumps
-from src.cart.dto import ProductCart
-from src.cart.errors import OutOfStockError, NotFoundOnCartError
-from src.product.services.product_services import ProductServices
+from src.purchase.dto import ProductCart
+from src.purchase.errors import OutOfStockError, NotFoundOnCartError
+from src.catalog.services.product_services import ProductServices
 
 
 class CartServices:
