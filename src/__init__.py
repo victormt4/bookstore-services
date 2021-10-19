@@ -19,7 +19,8 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = getenv('FLASK_SECRET_KEY', urandom(16))
 app.config['RESTX_VALIDATE'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
+# "postgres" foi deprecado, é necessário utilizar "postgresql"
+app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL').replace('postgres://', 'postgresql://')
 
 # Configurando objetos do banco e migração
 db = SQLAlchemy(app)
