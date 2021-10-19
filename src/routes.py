@@ -4,6 +4,9 @@ from flask_restx import Api
 
 
 def register_routes(app):
+    """
+    Importa os namespaces do flask-restx e registra na instancia do flask
+    """
     from src.catalog.endpoints.product_endpoints import product_endpoints
     from src.purchase.endpoints.cart_endpoints import cart_endpoints
     from src.purchase.endpoints.checkout_endpoints import checkout_endpoints

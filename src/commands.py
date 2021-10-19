@@ -4,6 +4,9 @@ from json import load
 def register_commands(app):
     @app.cli.command("seed")
     def seed():
+        """
+        Insere os produtos no banco de dados
+        """
         from src.catalog.entities import Product
         with open('storage/products.json', 'r') as fp:
             from src import db
