@@ -19,7 +19,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = getenv('FLASK_SECRET_KEY', urandom(16))
 app.config['RESTX_VALIDATE'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = getenv('FLASK_DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
 
 # Configurando objetos do banco e migração
 db = SQLAlchemy(app)
