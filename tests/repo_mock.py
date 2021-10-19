@@ -1,9 +1,9 @@
-from typing import List
+from typing import List, Optional
 from json import load
 
-from src.errors import NotFoundError
 from src.catalog.entities import Product
-from src.shared.contracts.repository import Repository
+from src.purchase.entities import Coupon
+from src.shared.contracts.repository import Repository, T
 
 
 class ProductRepoMock(Repository):
@@ -27,9 +27,28 @@ class ProductRepoMock(Repository):
 
             return product_list
 
-    def get(self, product_id: int) -> Product:
+    def get(self, product_id: int) -> Optional[Product]:
         for product in self.get_all():
             if product.id == product_id:
                 return product
 
-        raise NotFoundError(f"Product #{product_id} not found")
+        return None
+
+
+class CouponRepoMock(Repository):
+
+    def get_all(self) -> List[T]:
+        with open('storage/coupons.json', 'r') as fp:
+            return [
+                Coupon(
+                    coupon_dict['code'],
+                    coupon_dict['discount']
+                ) for coupon_dict in load(fp)
+            ]
+
+    def get(self, entity_id: int) -> Optional[T]:
+        for coupon in self.get_all():
+            if coupon.id == entity_id:
+                return coupon
+
+        return None

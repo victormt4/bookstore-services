@@ -8,9 +8,11 @@ def register_commands(app):
         Insere os produtos no banco de dados
         """
         from src.catalog.entities import Product
+        from src.purchase.entities import Coupon
 
         print('\nSeeding...')
 
+        # Criando produtos
         with open('storage/products.json', 'r') as fp:
             from src import db
 
@@ -27,4 +29,14 @@ def register_commands(app):
                 )
                 db.session.add(p)
 
-            db.session.commit()
+        # Criando coupons
+        with open('storage/coupons.json', 'r') as fp:
+            for coupon_dict in load(fp):
+                c = Coupon(
+                    coupon_dict['code'],
+                    coupon_dict['discount']
+                )
+                db.session.add(c)
+
+        # Comitando alterações
+        db.session.commit()

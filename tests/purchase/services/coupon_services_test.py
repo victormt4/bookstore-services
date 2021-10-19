@@ -6,8 +6,8 @@ from src.purchase.services.coupon_services import CouponServices
 from src.errors import NotFoundError
 
 
-def test_get_coupons():
-    coupon_service = CouponServices({})
+def test_get_coupons(coupon_repo):
+    coupon_service = CouponServices(coupon_repo, {})
 
     coupons = coupon_service.get_coupons()
 
@@ -17,8 +17,8 @@ def test_get_coupons():
         assert type(coupon) == Coupon
 
 
-def test_get_coupon():
-    coupon_service = CouponServices({})
+def test_get_coupon(coupon_repo):
+    coupon_service = CouponServices(coupon_repo, {})
 
     assert coupon_service.get_coupon('ASD810dss9da!98').code == 'ASD810dss9da!98'
 
@@ -27,8 +27,8 @@ def test_get_coupon():
         coupon_service.get_coupon('JASLKDJALKDJSKLA')
 
 
-def test_activate_coupon():
-    coupon_service = CouponServices({}, 10)
+def test_activate_coupon(coupon_repo):
+    coupon_service = CouponServices(coupon_repo, {}, 10)
 
     coupon_service.activate_coupon('ASD810dss9da!98')
     coupon_service.activate_coupon('4asd12d1asd!98')
@@ -42,7 +42,7 @@ def test_activate_coupon():
     with pytest.raises(CouponAlreadyActiveError):
         coupon_service.activate_coupon('ASD810dss9da!98')
 
-    coupon_service = CouponServices({}, 1)
+    coupon_service = CouponServices(coupon_repo, {}, 1)
     coupon_service.activate_coupon('ASD810dss9da!98')
 
     # Tentando ativar um coupon acima do limite permitido
@@ -50,8 +50,8 @@ def test_activate_coupon():
         coupon_service.activate_coupon('4asd12d1asd!98')
 
 
-def test_deactivate_coupons():
-    coupon_service = CouponServices({}, 10)
+def test_deactivate_coupons(coupon_repo):
+    coupon_service = CouponServices(coupon_repo, {}, 10)
 
     coupon_service.activate_coupon('ASD810dss9da!98')
     coupon_service.activate_coupon('4asd12d1asd!98')

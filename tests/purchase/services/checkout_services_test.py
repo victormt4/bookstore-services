@@ -6,9 +6,9 @@ from src.purchase.services.checkout_services import CheckoutServices
 from src.purchase.services.coupon_services import CouponServices
 
 
-def test_calc_subtotal(product_services):
+def test_calc_subtotal(product_services, coupon_repo):
     cart = CartServices(product_services, {})
-    checkout = CheckoutServices(cart, CouponServices({}))
+    checkout = CheckoutServices(cart, CouponServices(coupon_repo, {}))
 
     assert checkout.calc_sub_total() == 0
 
@@ -36,10 +36,10 @@ def test_calc_subtotal(product_services):
     assert checkout.calc_sub_total() == 0
 
 
-def test_calc_total(product_services):
+def test_calc_total(product_services, coupon_repo):
     session = {}
     cart = CartServices(product_services, session)
-    coupon = CouponServices(session, 10)
+    coupon = CouponServices(coupon_repo, session, 10)
     checkout = CheckoutServices(cart, coupon)
 
     cart.add_product_to_cart(1, 10)

@@ -1,21 +1,23 @@
 from typing import Dict, List
-from json import load
 from flask import session
 import pickle
 
 from src.purchase.entities import Coupon
 from src.purchase.errors import CouponAlreadyActiveError, CouponLimitError
 from src.errors import NotFoundError
+from src.shared.contracts.repository import Repository
 
 
 class CouponServices:
     __active_coupons: Dict[str, Coupon]
 
-    def __init__(self, session_object: session, coupon_limit: int = 1):
+    def __init__(self, coupon_repo: Repository[Coupon], session_object: session, coupon_limit: int = 1):
         """
-        :param session_object: objeto da dessão
-        :param coupon_limit: quantidade de coupons ativados ao mesmo tempo
+        :param Repository[Coupon] coupon_repo: Repo dos coupons
+        :param session|dict session_object: objeto da sessão
+        :param int coupon_limit: quantidade de coupons ativados ao mesmo tempo
         """
+        self.__repo = coupon_repo
         self.__session_object = session_object
         self.__active_coupons = {}
         self.__coupon_limit = coupon_limit
@@ -27,13 +29,7 @@ class CouponServices:
         Retorna uma lista de coupons
         :rtype: List[Coupon]
         """
-        with open('storage/coupons.json', 'r') as fp:
-            return [
-                Coupon(
-                    coupon_dict['code'],
-                    coupon_dict['discount']
-                ) for coupon_dict in load(fp)
-            ]
+        return self.__repo.get_all()
 
     def get_coupon(self, code: str) -> Coupon:
         """

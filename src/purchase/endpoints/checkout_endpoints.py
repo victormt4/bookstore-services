@@ -2,6 +2,7 @@ from flask import session
 from flask_restx import Namespace, Resource, fields
 
 from src.catalog.repo.product_repo import ProductRepo
+from src.purchase.repo.coupon_repo import CouponRepo
 from src.purchase.services.cart_services import CartServices
 from src.purchase.services.checkout_services import CheckoutServices
 from src.purchase.services.coupon_services import CouponServices
@@ -26,6 +27,7 @@ class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._coupon_services = CouponServices(
+            CouponRepo(),
             session
         )
         self._checkout_services = CheckoutServices(
