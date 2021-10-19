@@ -30,6 +30,6 @@ Irá gerar uma build do projeto, instalar as dependências da aplicação e inic
 
 Irá subir os containers da aplicação e rodar os testes utilizando o pytest.
 
-`docker-compose exec app poetry run pytest`
+`docker-compose -f docker/docker-compose.yml exec app poetry run pytest`
 
 Utilize esse comando caso os containers já estejam em execução pelo "start-dev-server.sh"
