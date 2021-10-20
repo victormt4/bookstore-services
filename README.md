@@ -22,7 +22,7 @@ criptografar o cookie de sessão do Flask
 
 `bash start-dev-server.sh`
 
-Irá gerar uma build do projeto, instalar as dependências da aplicação e inicializar os containers necessários
+Irá gerar uma build do projeto, instalar as dependências da aplicação e inicializar os containers necessários. A aplicação pode ser acessada através do localhost:5000.
 
 ### Comandos para rodar os testes automatizados
 
