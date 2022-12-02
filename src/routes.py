@@ -1,5 +1,3 @@
-from src import __version__
-
 from flask_restx import Api
 
 
@@ -14,7 +12,7 @@ def register_routes(app):
     # Configurando flask-restx
     api = Api(
         title='Bookstore Services',
-        version=__version__,
+        version='0.01',
         description='Endpoints para os serviços web do bookStore'
     )
 

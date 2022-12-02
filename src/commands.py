@@ -14,7 +14,7 @@ def register_commands(app):
 
         # Criando produtos
         with open('storage/products.json', 'r') as fp:
-            from src import db
+            from bookstore import db
 
             for product_dict in load(fp):
                 p = Product(

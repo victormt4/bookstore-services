@@ -1,4 +1,4 @@
-from src import db
+from bookstore import db
 
 
 class Coupon(db.Model):

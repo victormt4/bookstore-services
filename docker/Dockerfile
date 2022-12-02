@@ -1,12 +1,10 @@
-FROM python:3.8.12
+FROM python:3.10.8
 
 RUN mkdir /var/bookstore-services
 
-COPY pyproject.toml /var/bookstore-services
-COPY poetry.lock /var/bookstore-services
+COPY requirements.txt /var/bookstore-services
+COPY .env /var/bookstore-services
 
 WORKDIR /var/bookstore-services
 
-RUN pip3 install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install
+RUN pip3 install -r requirements.txt

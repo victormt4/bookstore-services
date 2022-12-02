@@ -1,7 +1,7 @@
 from money.money import Money
 from money.currency import Currency
 
-from src import db
+from bookstore import db
 
 
 class Product(db.Model):
