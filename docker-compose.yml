@@ -1,14 +1,16 @@
 services:
   app:
     build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     image: bookstore_services
     container_name: bookstore_services_app
     volumes:
-      - ../:/var/bookstore-services
+      - ./:/var/bookstore-services
     networks:
       - bookstore_services
+    environment:
+      - DATABASE_IP=db
     ports:
       - "5000:5000"
     command: flask --app bookstore --debug run --no-debugger --no-reload --host=0.0.0.0
@@ -18,8 +20,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    volumes:
-      - ../docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - POSTGRES_DB=bookstore
     networks:
       - bookstore_services
     ports:
