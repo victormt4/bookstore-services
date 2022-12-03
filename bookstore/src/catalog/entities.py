@@ -30,14 +30,14 @@ _product_table = Table(
     'product',
     metadata,
     Column('id', BigInteger, primary_key=True, autoincrement=True),
-    Column('name', String, primary_key=True, autoincrement=True),
-    Column('author', String, primary_key=True, autoincrement=True),
-    Column('description', String, primary_key=True, autoincrement=True),
-    Column('picture', String, primary_key=True, autoincrement=True),
-    Column('category', String, primary_key=True, autoincrement=True),
-    Column('stock', Integer, primary_key=True, autoincrement=True),
-    Column('likes', Integer, primary_key=True, autoincrement=True),
-    Column('price', BigInteger, primary_key=True, autoincrement=True),
+    Column('name', String(length=255), nullable=False),
+    Column('author', String(length=255), nullable=False),
+    Column('description', String, nullable=False),
+    Column('picture', String(length=255), nullable=False),
+    Column('category', String(length=255), nullable=False),
+    Column('stock', Integer, nullable=False),
+    Column('likes', Integer, nullable=False),
+    Column('price', BigInteger, nullable=False),
 )
 
 mapper(Product, _product_table)
