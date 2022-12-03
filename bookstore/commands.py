@@ -29,7 +29,7 @@ def register_commands(app):
                     len(product_dict['users_who_liked']),
                     product_dict['id'] * 100
                 )
-                db.session.add(p)
+                db.add(p)
 
         # Criando coupons
         with open('storage/coupons.json', 'r') as fp:
@@ -38,7 +38,7 @@ def register_commands(app):
                     coupon_dict['code'],
                     coupon_dict['discount']
                 )
-                db.session.add(c)
+                db.add(c)
 
         # Comitando alterações
-        db.session.commit()
+        db.commit()
