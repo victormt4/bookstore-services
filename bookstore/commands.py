@@ -15,7 +15,7 @@ def register_commands(app):
         print('\nSeeding...')
 
         # Criando produtos
-        with open('storage/products.json', 'r') as fp:
+        with open('bookstore/storage/products.json', 'r') as fp:
             db = get_database_session()
 
             for product_dict in load(fp):
@@ -32,7 +32,7 @@ def register_commands(app):
                 db.add(p)
 
         # Criando coupons
-        with open('storage/coupons.json', 'r') as fp:
+        with open('bookstore/storage/coupons.json', 'r') as fp:
             for coupon_dict in load(fp):
                 c = Coupon(
                     coupon_dict['code'],
@@ -42,3 +42,4 @@ def register_commands(app):
 
         # Comitando alterações
         db.commit()
+        print('\nDone!')

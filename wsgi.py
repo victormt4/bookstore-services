@@ -1,4 +1,4 @@
-from bookstore import bookstore
+from bookstore import create_app
 
 if __name__ == "__main__":
-    bookstore.run()
+    create_app().run()
