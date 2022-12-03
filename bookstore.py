@@ -23,7 +23,8 @@ DATABASE_NAME = getenv('DATABASE_NAME', 'bookstore')
 DATABASE_IP = getenv('DATABASE_IP', 'localhost')
 DATABASE_USER = getenv('DATABASE_USER', 'postgres')
 DATABASE_PASSWORD = getenv('DATABASE_PASSWORD', 'postgres')
-bookstore.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_IP}:5432/{DATABASE_NAME}'
+DATABASE_URL = f'postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_IP}:5432/{DATABASE_NAME}'
+bookstore.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 db = SQLAlchemy(bookstore)
 Migrate(bookstore, db)
 

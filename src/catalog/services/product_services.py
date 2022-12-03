@@ -1,4 +1,4 @@
-from typing import List
+from typing import Sequence
 
 from src.errors import NotFoundError
 from src.catalog.entities import Product
@@ -10,19 +10,10 @@ class ProductServices:
     def __init__(self, repo: Repository[Product]):
         self.__repo = repo
 
-    def get_product_list(self) -> List[Product]:
-        """
-        Return a list of Product
-        :rtype: List[Product]
-        """
-        return self.__repo.get_all()
+    def get_product_list(self) -> Sequence[Product]:
+        return self.__repo.filter_by()
 
     def get_product(self, product_id: int) -> Product:
-        """
-        Get a product by id
-        :rtype: Product
-        :raises NotFoundError
-        """
         product = self.__repo.get(product_id)
 
         if product is None:

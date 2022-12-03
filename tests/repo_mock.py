@@ -8,7 +8,7 @@ from src.shared.contracts.repository import Repository, T
 
 class ProductRepoMock(Repository):
 
-    def get_all(self) -> List[Product]:
+    def filter_by(self) -> List[Product]:
         with open('storage/products.json', 'r') as fp:
             product_list = []
             for product_dict in load(fp):
@@ -28,7 +28,7 @@ class ProductRepoMock(Repository):
             return product_list
 
     def get(self, product_id: int) -> Optional[Product]:
-        for product in self.get_all():
+        for product in self.filter_by():
             if product.id == product_id:
                 return product
 
@@ -37,7 +37,7 @@ class ProductRepoMock(Repository):
 
 class CouponRepoMock(Repository):
 
-    def get_all(self) -> List[T]:
+    def filter_by(self) -> List[T]:
         with open('storage/coupons.json', 'r') as fp:
             return [
                 Coupon(
@@ -47,7 +47,7 @@ class CouponRepoMock(Repository):
             ]
 
     def get(self, entity_id: int) -> Optional[T]:
-        for coupon in self.get_all():
+        for coupon in self.filter_by():
             if coupon.id == entity_id:
                 return coupon
 
