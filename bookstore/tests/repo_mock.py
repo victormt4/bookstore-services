@@ -3,10 +3,10 @@ from json import load
 
 from bookstore.src.catalog.entities import Product
 from bookstore.src.purchase.entities import Coupon
-from bookstore.src.shared.contracts.repository import Repository, T
+from bookstore.src.shared.contracts.repository_interface import RepositoryInterface, T
 
 
-class ProductRepoMock(Repository):
+class ProductRepoMock(RepositoryInterface):
 
     def filter_by(self) -> List[Product]:
         with open('storage/products.json', 'r') as fp:
@@ -35,7 +35,7 @@ class ProductRepoMock(Repository):
         return None
 
 
-class CouponRepoMock(Repository):
+class CouponRepoMock(RepositoryInterface):
 
     def filter_by(self) -> List[T]:
         with open('storage/coupons.json', 'r') as fp:

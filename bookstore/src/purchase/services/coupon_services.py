@@ -4,13 +4,13 @@ import pickle
 from bookstore.src.purchase.entities import Coupon
 from bookstore.src.purchase.errors import CouponAlreadyActiveError, CouponLimitError
 from bookstore.src.shared.errors import NotFoundError
-from bookstore.src.shared.contracts.repository import Repository
+from bookstore.src.shared.contracts.repository_interface import RepositoryInterface
 
 
 class CouponServices:
     __active_coupons: Dict[str, Coupon]
 
-    def __init__(self, coupon_repo: Repository[Coupon], session_object: dict, coupon_limit: int = 1):
+    def __init__(self, coupon_repo: RepositoryInterface[Coupon], session_object: dict, coupon_limit: int = 1):
         self.__repo = coupon_repo
         self.__session_object = session_object
         self.__active_coupons = {}
