@@ -10,18 +10,10 @@ from bookstore.src.purchase.services.coupon_services import CouponServices
 
 class CheckoutServices:
     def __init__(self, cart_services: CartServices, coupon_services: CouponServices):
-        """
-        :param cart_services: CartServices
-        :param coupon_services: CouponServices
-        """
         self.__cart = cart_services
         self.__coupon = coupon_services
 
     def calc_sub_total(self) -> int:
-        """
-        Calcula o sub total de todos os produtos do carrinho
-        :return: int Valor em centavos
-        """
         cart_data = self.__cart.get_cart_data()
 
         def sum_func(total_sum, current):
@@ -32,10 +24,6 @@ class CheckoutServices:
         return total
 
     def calc_total(self) -> int:
-        """
-        Calcula o total de todos os produtos do carrinho (Aplicando coupons, fretes, outras taxas)
-        :return: int Valor em centavos
-        """
         active_coupons = self.__coupon.get_active_coupons().values()
 
         discount_total = 0
@@ -43,7 +31,6 @@ class CheckoutServices:
         for coupon in active_coupons:
             discount_total += coupon.discount
 
-        # Checando se o sistema não está tentando aplicar um limite de 100%
         if discount_total >= 1:
             raise CouponLimitError
 
@@ -52,8 +39,4 @@ class CheckoutServices:
         return total.sub_units
 
     def get_totals(self) -> CheckoutTotals:
-        """
-        Retorna um objeto com os totais do checkout
-        :return: CheckoutTotals
-        """
         return CheckoutTotals(self.calc_sub_total(), self.calc_total())
