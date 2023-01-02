@@ -17,3 +17,9 @@ class Repository(Generic[Y], RepositoryInterface[Y]):
 
     def get(self, entity_id: int) -> Optional[Y]:
         return self._database_session.query(self._entity_type).get(entity_id)
+
+    def create(self, **kwargs) -> Y:
+        instance = self._entity_type(**kwargs)
+        self._database_session.add(instance)
+        self._database_session.flush([instance])
+        return instance

@@ -20,3 +20,6 @@ class ProductServices:
             raise NotFoundError(f"Product #{product_id} not found")
 
         return product
+
+    def create_product(self, **kwargs) -> Product:
+        return self._repo.create(**kwargs)

@@ -22,7 +22,7 @@ class Product(object):
         self.price = price
 
     @property
-    def price_text(self) -> Money:
+    def price_text(self) -> str:
         return Money.from_sub_units(self.price, Currency.BRL).format('pt_BR')
 
 

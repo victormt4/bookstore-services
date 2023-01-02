@@ -12,3 +12,7 @@ class RepositoryInterface(Generic[T], ABC):
     @abstractmethod
     def get(self, entity_id: int) -> Optional[T]:
         raise NotImplementedError
+
+    @abstractmethod
+    def create(self, **kwargs) -> T:
+        raise NotImplementedError
