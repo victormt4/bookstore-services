@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 
-from bookstore.src.purchase import PurchaseServices
+from bookstore.src.purchase import CartServices
 from bookstore.src.catalog.endpoints.product_endpoints import product_model
 
 cart_endpoints = Namespace('cart', description='Endpoints para operações no carrinho da loja', path='/cart')
@@ -22,7 +22,8 @@ product_cart_input_parser.add_argument('quantity', type=int, location='json')
 
 class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
-        self._cart_service = PurchaseServices.get_cart_services()
+        self._cart_service = CartServices.get_add_or_update_product_into_cart_service()
+        self._cart_adapter = CartServices.get_cart_adapter()
         super().__init__(*args, **kwargs)
 
 
@@ -32,7 +33,7 @@ class CartList(DefaultEndpoint):
     @cart_endpoints.doc(description='Lista os produtos do carrinho de compras')
     @cart_endpoints.marshal_list_with(product_cart_model)
     def get(self):
-        cart_data = list(self._cart_service.get_cart_data().values())
+        cart_data = list(self._cart_adapter.get_cart().values())
         if len(cart_data):
             return cart_data
         return []
@@ -57,7 +58,7 @@ class CartList(DefaultEndpoint):
 
     @cart_endpoints.doc(description='Limpa todos os dados do carrinho')
     def delete(self):
-        self._cart_service.clear_cart()
+        self._cart_adapter.remove_all()
         return {'message': 'All products have been removed from the cart'}
 
 

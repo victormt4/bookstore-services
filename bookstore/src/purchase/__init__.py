@@ -36,8 +36,12 @@ class PurchaseServices:
 
 class CartServices:
     @staticmethod
-    def get_add_or_update_product_into_cart_service():
+    def get_add_or_update_product_into_cart_service() -> AddOrUpdateProductIntoCartService:
         return AddOrUpdateProductIntoCartService(
             CartAdapter(session),
             CatalogServices.get_product_services()
         )
+
+    @staticmethod
+    def get_cart_adapter() -> CartAdapter:
+        return CartAdapter(session)
