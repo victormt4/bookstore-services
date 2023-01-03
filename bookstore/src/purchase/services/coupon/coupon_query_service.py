@@ -15,10 +15,10 @@ class CouponQueryService:
         return self.__repo.filter_by()
 
     def get_coupon_by_code(self, code: str) -> Coupon:
-        if (coupons := self.__repo.filter_by(code=code)) is None:
+        if (coupon := self.__repo.get_by(code=code)) is None:
             raise NotFoundError(f'Coupon "{code}" not found')
 
-        return coupons[0]
+        return coupon
 
     def get_active_coupons(self) -> dict[str, Coupon]:
         if 'active_coupons' not in self.__session:

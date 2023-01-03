@@ -14,5 +14,9 @@ class RepositoryInterface(Generic[T], ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def get_by(self, **kwargs) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
     def create(self, **kwargs) -> T:
         raise NotImplementedError
