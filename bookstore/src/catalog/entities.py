@@ -9,9 +9,7 @@ from bookstore.database import metadata
 class Product(object):
     id: int
 
-    def __init__(self, name: str, author: str, description: str, picture: str, category: str,
-                 stock: int,
-                 likes: int, price):
+    def __init__(self, name: str, author: str, description: str, picture: str, category: str, stock: int, likes: int, price: int):
         self.name = name
         self.author = author
         self.description = description
