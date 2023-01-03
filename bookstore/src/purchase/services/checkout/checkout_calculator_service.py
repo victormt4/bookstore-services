@@ -5,13 +5,13 @@ from money.currency import Currency
 from bookstore.src.purchase import CartAdapter
 from bookstore.src.purchase.dto import CheckoutTotals
 from bookstore.src.purchase.errors import CouponLimitError
-from bookstore.src.purchase.services.coupon_services import CouponServices
+from bookstore.src.purchase.services.coupon.coupon_query_service import CouponQueryService
 
 
 class CheckoutCalculatorService:
-    def __init__(self, cart: CartAdapter, coupon_services: CouponServices):
+    def __init__(self, cart: CartAdapter, coupon_query_service: CouponQueryService):
         self.__cart = cart
-        self.__coupon = coupon_services
+        self.__coupon_query_service = coupon_query_service
 
     def calc_sub_total(self) -> int:
         cart_data = self.__cart.get_cart()
@@ -24,7 +24,7 @@ class CheckoutCalculatorService:
         return total
 
     def calc_total(self) -> int:
-        active_coupons = self.__coupon.get_active_coupons().values()
+        active_coupons = self.__coupon_query_service.get_active_coupons().values()
 
         discount_total = 0
 

@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 
-from bookstore.src.purchase import PurchaseServices, CheckoutServices
+from bookstore.src.purchase import CouponServices, CheckoutServices
 
 checkout_endpoints = Namespace('checkout', description='Endpoints para operações do checkout', path='/checkout')
 
@@ -20,7 +20,7 @@ checkout_coupon_model = checkout_endpoints.model('CheckoutCoupon', {
 class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._coupon_services = PurchaseServices.get_coupon_services()
+        self._coupon_activator_service = CouponServices.get_coupon_activator_service()
         self._checkout_calculator_service = CheckoutServices.get_checkout_calculator_service()
 
 
@@ -39,10 +39,10 @@ class CheckoutActivateDiscount(DefaultEndpoint):
         parser = checkout_endpoints.parser()
         parser.add_argument('coupon', type=str, required=True, location='json')
         args = parser.parse_args()
-        self._coupon_services.activate_coupon(args.get('coupon'))
+        self._coupon_activator_service.activate_coupon(args.get('coupon'))
         return {'message': 'Coupon has been activated'}
 
     @checkout_endpoints.doc(description='Desativa todos os coupons de desconto')
     def delete(self):
-        self._coupon_services.deactivate_coupons()
+        self._coupon_activator_service.deactivate_all_coupons()
         return {'message': 'All coupons have been deactivated'}
