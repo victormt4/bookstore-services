@@ -3,7 +3,7 @@ from flask import session
 from bookstore.database import get_database_session
 from bookstore.src.catalog import CatalogServices
 from bookstore.src.purchase.entities import Coupon
-from bookstore.src.purchase.services.cart.add_product_into_cart_service import AddProductIntoCartService
+from bookstore.src.purchase.services.cart.add_or_update_product_into_cart_service import AddOrUpdateProductIntoCartService
 from bookstore.src.purchase.services.cart.cart_adapter import CartAdapter
 from bookstore.src.purchase.services.cart_services import CartServices as OldCartServices
 from bookstore.src.purchase.services.checkout_services import CheckoutServices
@@ -36,8 +36,8 @@ class PurchaseServices:
 
 class CartServices:
     @staticmethod
-    def get_add_product_into_cart_service():
-        return AddProductIntoCartService(
+    def get_add_or_update_product_into_cart_service():
+        return AddOrUpdateProductIntoCartService(
             CartAdapter(session),
             CatalogServices.get_product_services()
         )
