@@ -6,7 +6,7 @@ from bookstore.src.purchase.entities import Coupon
 from bookstore.src.purchase.services.cart.add_or_update_product_into_cart_service import AddOrUpdateProductIntoCartService
 from bookstore.src.purchase.services.cart.cart_adapter import CartAdapter
 from bookstore.src.purchase.services.cart_services import CartServices as OldCartServices
-from bookstore.src.purchase.services.checkout_services import CheckoutServices
+from bookstore.src.purchase.services.checkout.checkout_calculator_service import CheckoutCalculatorService
 from bookstore.src.purchase.services.coupon_services import CouponServices
 from bookstore.src.shared.repository import Repository
 
@@ -27,9 +27,9 @@ class PurchaseServices:
         )
 
     @classmethod
-    def get_checkout_services(cls):
-        return CheckoutServices(
-            cls.get_cart_services(),
+    def get_checkout_calculator_service(cls):
+        return CheckoutCalculatorService(
+            CartServices.get_cart_adapter(),
             cls.get_coupon_services()
         )
 

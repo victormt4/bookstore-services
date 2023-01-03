@@ -21,7 +21,7 @@ class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._coupon_services = PurchaseServices.get_coupon_services()
-        self._checkout_services = PurchaseServices.get_checkout_services()
+        self._checkout_calculator_service = PurchaseServices.get_checkout_calculator_service()
 
 
 @checkout_endpoints.route('/total')
@@ -29,7 +29,7 @@ class CheckoutTotal(DefaultEndpoint):
     @checkout_endpoints.doc(description='Calcula os totais do carrinho de compras')
     @checkout_endpoints.marshal_with(checkout_totals_model, description='Objeto com os totais calculados')
     def get(self):
-        return self._checkout_services.get_totals()
+        return self._checkout_calculator_service.get_totals()
 
 
 @checkout_endpoints.route('/coupon')

@@ -2,19 +2,19 @@ from functools import reduce
 from money.money import Money
 from money.currency import Currency
 
+from bookstore.src.purchase import CartAdapter
 from bookstore.src.purchase.dto import CheckoutTotals
 from bookstore.src.purchase.errors import CouponLimitError
-from bookstore.src.purchase.services.cart_services import CartServices
 from bookstore.src.purchase.services.coupon_services import CouponServices
 
 
-class CheckoutServices:
-    def __init__(self, cart_services: CartServices, coupon_services: CouponServices):
-        self.__cart = cart_services
+class CheckoutCalculatorService:
+    def __init__(self, cart: CartAdapter, coupon_services: CouponServices):
+        self.__cart = cart
         self.__coupon = coupon_services
 
     def calc_sub_total(self) -> int:
-        cart_data = self.__cart.get_cart_data()
+        cart_data = self.__cart.get_cart()
 
         def sum_func(total_sum, current):
             price = Money.from_sub_units(current.product.price, Currency.BRL)
