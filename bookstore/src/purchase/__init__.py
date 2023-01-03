@@ -18,11 +18,13 @@ class PurchaseServices:
             session
         )
 
+
+class CheckoutServices:
     @classmethod
     def get_checkout_calculator_service(cls):
         return CheckoutCalculatorService(
             CartServices.get_cart_adapter(),
-            cls.get_coupon_services()
+            PurchaseServices.get_coupon_services()
         )
 
 

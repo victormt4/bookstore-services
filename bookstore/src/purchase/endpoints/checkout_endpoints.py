@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 
-from bookstore.src.purchase import PurchaseServices
+from bookstore.src.purchase import PurchaseServices, CheckoutServices
 
 checkout_endpoints = Namespace('checkout', description='Endpoints para operações do checkout', path='/checkout')
 
@@ -21,7 +21,7 @@ class DefaultEndpoint(Resource):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._coupon_services = PurchaseServices.get_coupon_services()
-        self._checkout_calculator_service = PurchaseServices.get_checkout_calculator_service()
+        self._checkout_calculator_service = CheckoutServices.get_checkout_calculator_service()
 
 
 @checkout_endpoints.route('/total')
