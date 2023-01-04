@@ -1,0 +1,39 @@
+stages:
+  - build
+  - test
+
+variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    DOCKER_AUTH: echo -n "$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD" | base64
+    DOCKER_AUTH_CONFIG: echo {\"auths\":{\"registry.gitlab.com\":{\"auth\":\"$(eval $DOCKER_AUTH)\"}}}
+
+default:
+  before_script:
+    - mkdir -p $HOME/.docker
+    - eval $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+
+build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+integration-tests:
+  stage: test
+  needs: [build]
+  image: $IMAGE_TAG
+  services:
+    - name: postgres:11.6-alpine
+      alias: db
+      variables:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+  variables:
+    DATABASE_IP: db
+    DATABASE_USER: postgres
+    DATABASE_PASSWORD: postgres
+  script:
+    - pytest --verbose
