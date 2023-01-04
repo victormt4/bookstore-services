@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.backend
     image: bookstore_services
     container_name: bookstore_services_app
     volumes:
