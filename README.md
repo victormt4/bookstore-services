@@ -2,10 +2,6 @@
 
 Serviços do backend do [bookstore](https://github.com/victormt4/bookstore)
 
-## Documentação da API disponível em
-
-[https://bookstore-services.herokuapp.com/](https://bookstore-services.herokuapp.com/)
-
 ## Instruções para rodar o projeto localmente
 
 ### Requisitos na máquina do host
@@ -20,16 +16,12 @@ criptografar o cookie de sessão do Flask
 
 ### Comandos para inicializar aplicação
 
-`bash start-dev-server.sh`
+`docker compose up`
 
-Irá gerar uma build do projeto, instalar as dependências da aplicação e inicializar os containers necessários. A aplicação pode ser acessada através do localhost:5000.
+### Para criar as tabelas do banco
 
-### Comandos para rodar os testes automatizados
+`docker compose exec app flask db upgrade`
 
-`bash run-tests.sh`
+### Para inserir dados de testes no banco
 
-Irá subir os containers da aplicação e rodar os testes utilizando o pytest.
-
-`docker-compose -f docker/docker-compose.yml exec app poetry run pytest`
-
-Utilize esse comando caso os containers já estejam em execução pelo "start-dev-server.sh"
+`docker compose exec app flask seed`
