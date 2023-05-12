@@ -3,9 +3,20 @@ stages:
   - test
 
 variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    DOCKER_AUTH: echo -n "$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD" | base64
-    DOCKER_AUTH_CONFIG: echo {\"auths\":{\"registry.gitlab.com\":{\"auth\":\"$(eval $DOCKER_AUTH)\"}}}
+    IMAGE_TAG: $ECR_REGISTRY/bookstore_services:$CI_COMMIT_REF_SLUG
+
+.assume_role: &assume_role
+    - >
+      STS=($(aws sts assume-role-with-web-identity
+      --role-arn ${ROLE_ARN}
+      --role-session-name "GitLabRunner-${CI_PROJECT_ID}-${CI_PIPELINE_ID}"
+      --web-identity-token $CI_JOB_JWT_V2
+      --duration-seconds 3600
+      --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]'
+      --output text))
+    - export AWS_ACCESS_KEY_ID="${STS[0]}"
+    - export AWS_SECRET_ACCESS_KEY="${STS[1]}"
+    - export AWS_SESSION_TOKEN="${STS[2]}"
 
 default:
   before_script:
@@ -18,6 +29,9 @@ build:
   services:
     - docker:20.10.16-dind
   script:
+    - apk add gcc alpine-sdk python3-dev python3 py3-pip && pip3 install awscli
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $$ECR_REGISTRY
+    - *assume_role
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
 
