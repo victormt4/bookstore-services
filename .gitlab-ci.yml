@@ -3,14 +3,18 @@ stages:
   - test
 
 variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    DOCKER_AUTH: echo -n "$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD" | base64
-    DOCKER_AUTH_CONFIG: echo {\"auths\":{\"registry.gitlab.com\":{\"auth\":\"$(eval $DOCKER_AUTH)\"}}}
+  IMAGE_TAG: $ECR_REGISTRY/victormt4/bookstore-services:$CI_COMMIT_REF_SLUG
 
-default:
-  before_script:
-    - mkdir -p $HOME/.docker
-    - eval $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+.assume_role: &assume_role
+  - >
+    export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s"
+    $(aws sts assume-role-with-web-identity
+    --role-arn ${ROLE_ARN}
+    --role-session-name "GitLabRunner-${CI_PROJECT_ID}-${CI_PIPELINE_ID}"
+    --web-identity-token $CI_JOB_JWT_V2
+    --duration-seconds 3600
+    --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]'
+    --output text))
 
 build:
   stage: build
@@ -18,12 +22,24 @@ build:
   services:
     - docker:20.10.16-dind
   script:
+    # Faz autenticação nos serviços do AWS
+    - apk add gcc alpine-sdk python3-dev python3 py3-pip && pip3 install awscli
+    - *assume_role
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+    # Gera e publicar a build
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+    # Gera token do ECR par ser utilizado em outro JOB
+    - echo "DOCKER_AUTH_CONFIG={\"auths\":{\"$ECR_REGISTRY\":{\"auth\":\"`echo \"AWS:$(aws ecr get-login-password --region ${AWS_DEFAULT_REGION})\" | base64 | tr -d '\n'`\"}}}" >> ${CI_PROJECT_DIR}/auth.env
+  artifacts:
+    reports:
+      dotenv: auth.env
 
 integration-tests:
   stage: test
-  needs: [build]
+  needs: [ build ]
+  dependencies:
+    - build
   image: $IMAGE_TAG
   services:
     - name: postgres:11.6-alpine
