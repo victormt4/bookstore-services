@@ -9,3 +9,7 @@ WORKDIR /var/bookstore-services
 RUN pip3 install -r requirements.txt
 
 COPY . /var/bookstore-services
+
+EXPOSE 5000
+
+ENTRYPOINT ["flask", "--app", "bookstore", "run", "--host=0.0.0.0"]
